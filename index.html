@@ -416,10 +416,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4">
-                    <p class="text-muted small mb-3">Digite a senha de professor para gerenciar conteúdos ou baixar os PDFs enviados.</p>
+                    <p class="text-muted small mb-3">Digite a senha de professor para gerenciar conteúdos, excluir erros ou baixar os PDFs.</p>
                     <div class="mb-3">
                         <label class="form-label fw-semibold small">Senha de Acesso</label>
-                        <input type="password" id="senhaAdmin" class="form-control rounded-3" placeholder="Senha padrão: 1234">
+                        <input type="password" id="senhaAdmin" class="form-control rounded-3" placeholder="Digite a senha">
                     </div>
                     <button type="button" class="btn btn-iema w-100 py-2 fw-bold rounded-3" onclick="verificarSenha()">Entrar no Painel</button>
                 </div>
@@ -427,12 +427,12 @@
         </div>
     </div>
 
-    <!-- Modal de Gestão do Professor -->
+    <!-- Modal de Gestão do Professor (Com Abas de Gerenciamento e Exclusão) -->
     <div class="modal fade" id="modalGerenciar" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content rounded-4 border-0 shadow">
                 <div class="modal-header bg-iema-blue text-white py-3">
-                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-screwdriver-wrench me-2"></i> Painel do Professor (Supabase Nuvem)</h5>
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-screwdriver-wrench me-2"></i> Painel do Professor (Supabase)</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4">
@@ -441,11 +441,15 @@
                             <button class="nav-link active fw-bold" id="pills-add-tab" data-bs-toggle="pill" data-bs-target="#pills-add" type="button"><i class="fa-solid fa-plus me-1"></i> Adicionar Conteúdo</button>
                         </li>
                         <li class="nav-item" role="presentation">
+                            <button class="nav-link fw-bold" id="pills-gerenciar-tab" data-bs-toggle="pill" data-bs-target="#pills-gerenciar" type="button" onclick="carregarListaGerenciamento()"><i class="fa-solid fa-trash-can me-1"></i> Gerenciar / Excluir Itens</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
                             <button class="nav-link fw-bold" id="pills-entregas-tab" data-bs-toggle="pill" data-bs-target="#pills-entregas" type="button" onclick="carregarEntregasAdmin()"><i class="fa-solid fa-file-pdf me-1"></i> PDFs Recebidos</button>
                         </li>
                     </ul>
 
                     <div class="tab-content" id="pills-tabContent">
+                        <!-- Adicionar -->
                         <div class="tab-pane fade show active" id="pills-add">
                             <form id="formAdicionar" onsubmit="salvarNovoConteudo(event)">
                                 <div class="mb-3">
@@ -472,7 +476,27 @@
                             </form>
                         </div>
 
-                        <!-- Aba PDFs Recebidos -->
+                        <!-- Gerenciar / Excluir -->
+                        <div class="tab-pane fade" id="pills-gerenciar">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Selecione a Turma para Gerenciar</label>
+                                <select id="selectTurmaGerenciar" class="form-select rounded-3" onchange="carregarListaGerenciamento()"></select>
+                            </div>
+                            <h6 class="fw-bold text-iema-blue mt-3">Atividades / Trabalhos Cadastrados:</h6>
+                            <div class="table-responsive mb-4" style="max-height: 150px; overflow-y: auto;">
+                                <table class="table table-sm align-middle">
+                                    <tbody id="tabelaGerenciarTrabalhos"></tbody>
+                                </table>
+                            </div>
+                            <h6 class="fw-bold text-iema-blue">Materiais de Aula Cadastrados:</h6>
+                            <div class="table-responsive" style="max-height: 150px; overflow-y: auto;">
+                                <table class="table table-sm align-middle">
+                                    <tbody id="tabelaGerenciarMateriais"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- PDFs Recebidos -->
                         <div class="tab-pane fade" id="pills-entregas">
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Selecione a Turma para Ver os PDFs</label>
@@ -509,7 +533,7 @@
     <!-- Supabase JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- Script JavaScript com Integração Supabase -->
+    <!-- Script JavaScript Completo com Exclusão e Supabase -->
     <script>
         const SUPABASE_URL = 'https://lwcvpltjexddbsgrquyn.supabase.co';
         const SUPABASE_ANON_KEY = 'lwcvpltjexddbsgrquyn';
@@ -556,7 +580,6 @@
                 renderizarHome();
             } catch (erro) {
                 console.error("Erro ao conectar com Supabase:", erro);
-                alert("Erro ao conectar com o Supabase. Verifique sua tabela 'portal_dados'.");
             }
         }
 
@@ -824,7 +847,7 @@
             const senhaInput = document.getElementById('senhaAdmin');
             if (!senhaInput) return;
             const senha = senhaInput.value;
-            if (senha === '1234') {
+            if (senha === 'We2016si!') {
                 const modalAdminEl = document.getElementById('modalAdmin');
                 if (modalAdminEl) {
                     bootstrap.Modal.getInstance(modalAdminEl).hide();
@@ -837,22 +860,85 @@
                     modalGerenciar.show();
                 }
             } else {
-                alert('Senha incorreta! A senha padrão é 1234');
+                alert('Senha incorreta!');
             }
         }
 
         function popularSelectAdmin() {
             const selectAdd = document.getElementById('selectTurmaAdmin');
+            const selectGerenciar = document.getElementById('selectTurmaGerenciar');
             const selectEntregas = document.getElementById('selectTurmaEntregas');
             if (selectAdd) selectAdd.innerHTML = '';
+            if (selectGerenciar) selectGerenciar.innerHTML = '';
             if (selectEntregas) selectEntregas.innerHTML = '';
 
             listaNomesTurmas.forEach((nomeTurma, index) => {
                 const id = `turma-${index + 1}`;
                 if (selectAdd) selectAdd.innerHTML += `<option value="${id}">${nomeTurma}</option>`;
+                if (selectGerenciar) selectGerenciar.innerHTML += `<option value="${id}">${nomeTurma}</option>`;
                 if (selectEntregas) selectEntregas.innerHTML += `<option value="${id}">${nomeTurma}</option>`;
             });
+            carregarListaGerenciamento();
             carregarEntregasAdmin();
+        }
+
+        // Funções de Gestão e Exclusão na Área do Professor
+        function carregarListaGerenciamento() {
+            const turmaID = document.getElementById('selectTurmaGerenciar').value;
+            const tabelaTrabalhos = document.getElementById('tabelaGerenciarTrabalhos');
+            const tabelaMateriais = document.getElementById('tabelaGerenciarMateriais');
+            if (!tabelaTrabalhos || !tabelaMateriais || !turmaID) return;
+
+            tabelaTrabalhos.innerHTML = '';
+            tabelaMateriais.innerHTML = '';
+
+            const turma = dadosTurmas[turmaID];
+
+            if (turma.trabalhos && turma.trabalhos.length > 0) {
+                turma.trabalhos.forEach((t, index) => {
+                    tabelaTrabalhos.innerHTML += `
+                        <tr>
+                            <td>${t.titulo}</td>
+                            <td class="text-end"><button class="btn btn-sm btn-danger fw-bold" onclick="excluirTrabalho('${turmaID}', ${index})"><i class="fa-solid fa-trash"></i> Excluir</button></td>
+                        </tr>
+                    `;
+                });
+            } else {
+                tabelaTrabalhos.innerHTML = `<tr><td class="text-muted small">Nenhuma atividade cadastrada.</td></tr>`;
+            }
+
+            if (turma.materiais && turma.materiais.length > 0) {
+                turma.materiais.forEach((m, index) => {
+                    tabelaMateriais.innerHTML += `
+                        <tr>
+                            <td>${m.titulo}</td>
+                            <td class="text-end"><button class="btn btn-sm btn-danger fw-bold" onclick="excluirMaterial('${turmaID}', ${index})"><i class="fa-solid fa-trash"></i> Excluir</button></td>
+                        </tr>
+                    `;
+                });
+            } else {
+                tabelaMateriais.innerHTML = `<tr><td class="text-muted small">Nenhum material cadastrado.</td></tr>`;
+            }
+        }
+
+        async function excluirTrabalho(turmaID, index) {
+            if (confirm('Deseja realmente excluir esta atividade?')) {
+                dadosTurmas[turmaID].trabalhos.splice(index, 1);
+                await salvarDadosSupabase();
+                carregarListaGerenciamento();
+                if (turmaAtualID === turmaID) abrirTurma(turmaID);
+                alert('Atividade excluída com sucesso!');
+            }
+        }
+
+        async function excluirMaterial(turmaID, index) {
+            if (confirm('Deseja realmente excluir este material?')) {
+                dadosTurmas[turmaID].materiais.splice(index, 1);
+                await salvarDadosSupabase();
+                carregarListaGerenciamento();
+                if (turmaAtualID === turmaID) abrirTurma(turmaID);
+                alert('Material excluído com sucesso!');
+            }
         }
 
         function carregarEntregasAdmin() {
