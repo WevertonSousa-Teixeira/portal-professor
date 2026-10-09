@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Professor | IEMA</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --iema-blue: #005691;       
+            --iema-blue-hover: #003e6b;
+            --iema-red: #d9383a;        
+            --iema-dark: #212529;       
+            --bg-color: #f4f6f9;        
+            --card-bg: #ffffff;
+            --card-border: #dcdfe6;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+        }
+
+        body {
+            background-color: var(--bg-color) !important;
+            color: var(--text-main) !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+        }
+
+        header.navbar {
+            background: #ffffff !important;
+            border-bottom: 3px solid var(--iema-blue) !important;
+        }
+
+        .badge-iema-header {
+            background: linear-gradient(135deg, var(--iema-blue) 0%, var(--iema-red) 100%);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .text-iema-blue {
+            color: var(--iema-blue) !important;
+        }
+
+        .bg-iema-blue {
+            background-color: var(--iema-blue) !important;
+        }
+
+        .btn-iema {
+            background-color: var(--iema-blue);
+            border: none;
+            color: #fff;
+        }
+        .btn-iema:hover {
+            background-color: var(--iema-blue-hover);
+            color: #fff;
+        }
+
+        .btn-voltar {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--iema-blue);
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-voltar:hover {
+            background: var(--iema-blue);
+            color: #ffffff;
+            border-color: var(--iema-blue);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #ffffff 0%, #eef3f8 100%);
+            border-left: 6px solid var(--iema-blue) !important;
+        }
+
+        .hero-content h1 span {
+            color: var(--iema-blue);
+        }
+
+        .badge-prof {
+            display: inline-block;
+            background: rgba(0, 86, 145, 0.1);
+            color: var(--iema-blue);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .turma-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .turma-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--iema-blue);
+            box-shadow: 0 10px 25px rgba(0, 86, 145, 0.1);
+        }
+
+        .turma-card-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 86, 145, 0.08);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--iema-blue);
+            font-size: 1.25rem;
+        }
+
+        .turma-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--card-border);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--iema-blue);
+        }
+
+        .card-painel {
+            background: var(--card-bg);
+        }
+
+        .alert-iema {
+            background-color: #e8f1f8;
+            border-color: #b0d1e8 !important;
+        }
+
+        .table {
+            color: var(--text-main);
+        }
+
+        .prazo-tag {
+            background: rgba(217, 56, 58, 0.1);
+            color: var(--iema-red);
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .tag-urgente {
+            background: #d9383a !important;
+            color: #ffffff !important;
+            animation: pulsar 1.5s infinite;
+        }
+
+        @keyframes pulsar {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .badge-novo {
+            background: #28a745;
+            color: white;
+            font-size: 0.65rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+        }
+
+        .badge-downloads {
+            background: #e2e8f0;
+            color: #475569;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .material-item {
+            background: #f8fafc;
+            border: 1px solid var(--card-border);
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.2s;
+        }
+
+        .material-item:hover {
+            border-color: var(--iema-blue);
+            background: #ffffff;
+        }
+
+        .material-item a {
+            background: var(--iema-blue);
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: 0.2s;
+        }
+
+        .material-item a:hover {
+            background: var(--iema-blue-hover);
+        }
+
+        /* Pomodoro Widget Styles */
+        .pomodoro-card {
+            background: linear-gradient(135deg, #005691 0%, #003e6b 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .pomodoro-timer {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Header -->
+    <header class="navbar navbar-expand-lg sticky-top px-4 py-3 shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand logo d-flex align-items-center gap-3" href="#">
+                <div class="badge-iema-header d-flex align-items-center px-3 py-1 rounded-2 text-white fw-bold">
+                    IEMA
+                </div>
+                <div class="d-flex flex-column">
+                    <span class="fs-6 fw-extrabold text-dark lh-1">GOVERNO DO MARANHÃO</span>
+                    <small class="text-muted" style="font-size: 0.7rem;">Secretaria de Estado da Educação</small>
+                </div>
+            </a>
+            
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-dark btn-sm rounded-pill px-3 fw-semibold" onclick="abrirModalAdmin()">
+                    <i class="fa-solid fa-lock me-1"></i> Área do Professor
+                </button>
+                <button class="btn btn-voltar px-4 py-2 shadow-sm" id="btnVoltar" onclick="voltarHome()" style="display: none;">
+                    <i class="fa-solid fa-arrow-left me-2"></i> Voltar às Turmas
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container my-5 flex-grow-1">
+        
+        <!-- TELA INICIAL (12 TURMAS) -->
+        <div id="secao-home">
+            <div class="hero-section p-5 mb-5 rounded-4 shadow-sm border">
+                <div class="hero-content">
+                    <span class="badge-prof mb-3">PROFESSOR WEVERTON TEIXEIRA • Ensino Técnico e Tecnológico</span>
+                    <h1 class="display-5 fw-bold mb-3 text-dark">Central de Acompanhamento das <span>turmas - IP BACABEIRA</span>.</h1>
+                    <p class="text-muted lead">Acesse abaixo o painel específico de cada turma para consultar cronogramas, avisos, prazos, baixar materiais e enviar trabalhos em PDF.</p>
+                </div>
+            </div>
+
+            <div class="section-title mb-4 d-flex align-items-center justify-content-between">
+                <div class="fs-4 fw-bold text-dark d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-iema-blue"></i> Selecione a Turma
+                </div>
+            </div>
+
+            <div class="row g-4" id="gridTurmas"></div>
+        </div>
+
+        <!-- TELA DA TURMA ESPECÍFICA -->
+        <section id="secao-turma" style="display: none;">
+            <div class="turma-topo mb-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <div>
+                    <h2 id="tituloTurma" class="fw-bold text-dark mb-1">Turma</h2>
+                    <p class="text-muted mb-0">Ambiente exclusivo de conteúdos, avisos e cronograma acadêmico.</p>
+                </div>
+                <a href="https://wa.me/" target="_blank" class="btn btn-success rounded-pill px-4 fw-semibold shadow-sm">
+                    <i class="fa-brands fa-whatsapp me-2"></i> Plantão de Dúvidas
+                </a>
+            </div>
+
+            <!-- Mural de Avisos da Turma -->
+            <div class="alert alert-iema mb-4 rounded-4 shadow-sm border p-4 d-flex align-items-start gap-3" role="alert">
+                <i class="fa-solid fa-bullhorn fs-3 text-iema-blue mt-1"></i>
+                <div>
+                    <h5 class="fw-bold text-iema-blue mb-1">Mural de Avisos da Semana</h5>
+                    <p class="mb-0 text-dark" id="textoAvisoTurma">Nenhum aviso urgente no momento. Fique atento às datas de entrega dos projetos práticos!</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Coluna Esquerda: Trabalhos & Timer Pomodoro -->
+                <div class="col-lg-7 d-flex flex-column gap-4">
+                    <div class="card-painel p-4 rounded-4 shadow-sm border">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="h5 fw-bold mb-0 text-iema-blue d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-calendar-days"></i> Atividades e Prazos de Entrega
+                            </h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-secondary fw-semibold">Atividade / Projeto</th>
+                                        <th class="text-secondary fw-semibold">Data Limite</th>
+                                        <th class="text-secondary fw-semibold text-end">Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabelaTrabalhos"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Widget Pomodoro para Estudo -->
+                    <div class="pomodoro-card shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="fw-bold mb-0"><i class="fa-solid fa-stopwatch me-2"></i> Pomodoro de Estudos</h5>
+                            <span class="badge bg-light text-dark fw-bold" id="pomodoroModo">Foco (25m)</span>
+                        </div>
+                        <p class="small text-white-50 mb-1">Concentre-se nos estudos para a prova sem distrações!</p>
+                        <div class="pomodoro-timer" id="pomodoroDisplay">25:00</div>
+                        <div class="d-flex justify-content-center gap-2 mt-3">
+                            <button class="btn btn-light btn-sm fw-bold px-3 text-primary" onclick="iniciarPomodoro()"><i class="fa-solid fa-play me-1"></i> Iniciar</button>
+                            <button class="btn btn-outline-light btn-sm fw-bold px-3" onclick="pausarPomodoro()"><i class="fa-solid fa-pause me-1"></i> Pausar</button>
+                            <button class="btn btn-outline-light btn-sm fw-bold px-3" onclick="resetarPomodoro()"><i class="fa-solid fa-rotate-right me-1"></i> Resetar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita: Materiais e Busca -->
+                <div class="col-lg-5 d-flex flex-column gap-4">
+                    <div class="card-painel p-4 rounded-4 shadow-sm border">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3 class="h5 fw-bold mb-0 text-iema-blue d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-folder-open"></i> Materiais de Aula
+                            </h3>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
+                            <input type="text" id="inputBusca" class="form-control border-start-0 bg-light" placeholder="Pesquisar material..." onkeyup="filtrarMateriais()">
+                        </div>
+                        <div class="materiais-list d-flex flex-column gap-3" id="listaMateriais"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal para Aluno Enviar Arquivo PDF -->
+    <div class="modal fade" id="modalEntregarTrabalho" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header bg-iema-blue text-white py-3">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-file-pdf me-2"></i> Enviar Trabalho em PDF</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="formEntregaAluno" onsubmit="enviarTrabalhoPDF(event)">
+                        <input type="hidden" id="entregaIndexTrabalho">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Tipo de Envio</label>
+                            <select id="tipoEnvioAluno" class="form-select rounded-3" onchange="alternarCamposEnvio()">
+                                <option value="individual">Individual</option>
+                                <option value="grupo">Em Grupo</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="containerNomesAlunos">
+                            <label class="form-label fw-semibold" id="labelNomesAlunos">Nome Completo do Aluno</label>
+                            <input type="text" id="inputNomesAlunos" class="form-control rounded-3" placeholder="Ex: João Silva" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Selecionar Arquivo PDF</label>
+                            <input type="file" id="inputFilePDF" class="form-control rounded-3" accept="application/pdf" required>
+                            <div class="form-text">O arquivo deve estar no formato .pdf</div>
+                        </div>
+                        <button type="submit" class="btn btn-iema w-100 py-2 fw-bold rounded-3">Enviar PDF</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal da Área do Professor -->
+    <div class="modal fade" id="modalAdmin" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold text-iema-blue"><i class="fa-solid fa-lock me-2"></i> Autenticação Docente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-muted small mb-3">Digite a senha de professor para gerenciar conteúdos ou baixar os PDFs enviados.</p>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Senha de Acesso</label>
+                        <input type="password" id="senhaAdmin" class="form-control rounded-3" placeholder="Senha padrão: 1234">
+                    </div>
+                    <button type="button" class="btn btn-iema w-100 py-2 fw-bold rounded-3" onclick="verificarSenha()">Entrar no Painel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Gestão do Professor -->
+    <div class="modal fade" id="modalGerenciar" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header bg-iema-blue text-white py-3">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-screwdriver-wrench me-2"></i> Painel do Professor</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active fw-bold" id="pills-add-tab" data-bs-toggle="pill" data-bs-target="#pills-add" type="button"><i class="fa-solid fa-plus me-1"></i> Adicionar Conteúdo</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link fw-bold" id="pills-entregas-tab" data-bs-toggle="pill" data-bs-target="#pills-entregas" type="button" onclick="carregarEntregasAdmin()"><i class="fa-solid fa-file-pdf me-1"></i> PDFs Recebidos</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-add">
+                            <form id="formAdicionar" onsubmit="salvarNovoConteudo(event)">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Selecionar Turma</label>
+                                    <select id="selectTurmaAdmin" class="form-select rounded-3"></select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">O que deseja adicionar?</label>
+                                    <select id="tipoAdicao" class="form-select rounded-3" onchange="alternarCamposAdicao()">
+                                        <option value="material">Novo Material de Aula (Google Drive)</option>
+                                        <option value="trabalho">Novo Trabalho / Atividade</option>
+                                        <option value="aviso">Atualizar Mural de Avisos</option>
+                                    </select>
+                                </div>
+                                <div id="campoTituloContainer" class="mb-3">
+                                    <label class="form-label fw-semibold" id="labelTituloItem">Título do Material</label>
+                                    <input type="text" id="inputTituloItem" class="form-control rounded-3" placeholder="Ex: Slides da Aula 03">
+                                </div>
+                                <div id="campoExtraContainer" class="mb-3">
+                                    <label class="form-label fw-semibold" id="labelExtraItem">Link do Google Drive</label>
+                                    <input type="text" id="inputExtraItem" class="form-control rounded-3" placeholder="https://drive.google.com/...">
+                                </div>
+                                <button type="submit" class="btn btn-success w-100 py-2 fw-bold rounded-3">Salvar e Publicar no Site</button>
+                            </form>
+                        </div>
+
+                        <!-- Aba PDFs Recebidos -->
+                        <div class="tab-pane fade" id="pills-entregas">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Selecione a Turma para Ver os PDFs</label>
+                                <select id="selectTurmaEntregas" class="form-select rounded-3" onchange="carregarEntregasAdmin()"></select>
+                            </div>
+                            <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                                <table class="table table-striped align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Atividade</th>
+                                            <th>Aluno(s) / Grupo</th>
+                                            <th>Arquivo PDF</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabelaEntregasAdmin">
+                                        <tr><td colspan="3" class="text-center text-muted">Nenhum PDF enviado ainda.</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="text-center py-4 bg-white border-top text-muted small">
+        <p class="mb-0">&copy; 2026 Portal do Professor | Instituto de Educação, Ciência e Tecnologia do Maranhão - IEMA.</p>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script JavaScript com as 12 Turmas Reais -->
+    <script>
+        // Lista oficial das 12 turmas solicitadas
+        const listaNomesTurmas = [
+            "101 Administração",
+            "102 Agroecologia",
+            "103 Logística",
+            "104 Desenvolvimento de Sistema",
+            "201 Administração",
+            "202 Agroecologia",
+            "203 Logística",
+            "204 Informática",
+            "301 Administração",
+            "302 Agroecologia",
+            "303 Logística",
+            "304 Informática"
+        ];
+
+        let dadosTurmas = JSON.parse(localStorage.getItem('iema_dados_turmas')) || {};
+
+        // Inicializa ou atualiza as turmas caso ainda não existam no navegador
+        listaNomesTurmas.forEach((nomeTurma, index) => {
+            const id = `turma-${index + 1}`;
+            if (!dadosTurmas[id]) {
+                dadosTurmas[id] = {
+                    nome: nomeTurma,
+                    aviso: "Atenção aos prazos das atividades práticas laboratoriais e entrega dos roteiros.",
+                    trabalhos: [
+                        { titulo: "Desenvolvimento de Aplicação / Roteiro Prático", data: "2026-10-25", entregas: [] },
+                        { titulo: "Entrega da Documentação do Projeto", data: "2026-11-05", entregas: [] }
+                    ],
+                    materiais: [
+                        { titulo: "Slides e Guia de Aprendizagem (PDF)", link: "https://drive.google.com/file/d/SEU_LINK_DO_DRIVE_AQUI/view", novo: true, cliques: 0 },
+                        { titulo: "Material Complementar de Estudo", link: "https://drive.google.com/file/d/SEU_OUTRO_LINK_AQUI/view", novo: false, cliques: 0 }
+                    ]
+                };
+            } else {
+                // Atualiza o nome da turma caso já exista no cache antigo
+                dadosTurmas[id].nome = nomeTurma;
+            }
+        });
+        localStorage.setItem('iema_dados_turmas', JSON.stringify(dadosTurmas));
+
+        let turmaAtualID = null;
+
+        function renderizarHome() {
+            const gridTurmas = document.getElementById('gridTurmas');
+            if (!gridTurmas) return;
+            gridTurmas.innerHTML = '';
+            
+            listaNomesTurmas.forEach((nomeTurma, index) => {
+                const id = `turma-${index + 1}`;
+                const turma = dadosTurmas[id];
+                const col = document.createElement('div');
+                col.className = 'col-sm-6 col-md-4 col-xl-3';
+                col.innerHTML = `
+                    <div class="turma-card" onclick="abrirTurma('${id}')">
+                        <div class="turma-card-icon">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="h5 fw-bold mb-1">${turma.nome}</h3>
+                        <p class="text-muted small mb-0">${turma.trabalhos.length} atividades • Materiais no Drive</p>
+                        <div class="turma-card-footer">
+                            <span>Acessar painel</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                `;
+                gridTurmas.appendChild(col);
+            });
+            popularSelectAdmin();
+        }
+        renderizarHome();
+
+        function abrirTurma(idTurma) {
+            turmaAtualID = idTurma;
+            const turma = dadosTurmas[idTurma];
+            
+            document.getElementById('tituloTurma').innerText = turma.nome;
+            document.getElementById('textoAvisoTurma').innerText = turma.aviso;
+
+            renderizarTrabalhos(turma.trabalhos);
+            renderizarMateriais(turma.materiais);
+
+            document.getElementById('secao-home').style.display = 'none';
+            document.getElementById('secao-turma').style.display = 'block';
+            document.getElementById('btnVoltar').style.display = 'inline-block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderizarTrabalhos(trabalhos) {
+            const tbody = document.getElementById('tabelaTrabalhos');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            
+            const hoje = new Date();
+
+            trabalhos.forEach((t, index) => {
+                const dataLimite = new Date(t.data + 'T23:59:59');
+                const diffTempo = dataLimite - hoje;
+                const diffDias = Math.ceil(diffTempo / (1000 * 60 * 60 * 24));
+                
+                let textoPrazo = '';
+                let classeTag = 'prazo-tag';
+
+                if (diffDias < 0) {
+                    textoPrazo = 'Prazo Encerrado';
+                    classeTag += ' bg-secondary text-white';
+                } else if (diffDias === 0) {
+                    textoPrazo = 'Expira HOJE!';
+                    classeTag += ' tag-urgente';
+                } else if (diffDias <= 3) {
+                    textoPrazo = `Faltam ${diffDias} dias!`;
+                    classeTag += ' tag-urgente';
+                } else {
+                    textoPrazo = `Entrega em ${diffDias} dias`;
+                }
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${t.titulo}</strong></td>
+                        <td><span class="${classeTag}"><i class="fa-regular fa-clock"></i> ${textoPrazo} (${t.data.split('-').reverse().join('/')})</span></td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-iema rounded-pill px-3 fw-semibold" onclick="abrirModalEntrega(${index})">
+                                <i class="fa-solid fa-file-arrow-up me-1"></i> Enviar PDF
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function abrirModalEntrega(indexTrabalho) {
+            document.getElementById('entregaIndexTrabalho').value = indexTrabalho;
+            document.getElementById('formEntregaAluno').reset();
+            alternarCamposEnvio();
+            const modal = new bootstrap.Modal(document.getElementById('modalEntregarTrabalho'));
+            modal.show();
+        }
+
+        function alternarCamposEnvio() {
+            const tipo = document.getElementById('tipoEnvioAluno').value;
+            const labelNomes = document.getElementById('labelNomesAlunos');
+            const inputNomes = document.getElementById('inputNomesAlunos');
+
+            if (tipo === 'individual') {
+                labelNomes.innerText = "Nome Completo do Aluno";
+                inputNomes.placeholder = "Ex: João Silva";
+            } else {
+                labelNomes.innerText = "Nome de Todos os Integrantes do Grupo";
+                inputNomes.placeholder = "Ex: João, Maria, Pedro, Ana";
+            }
+        }
+
+        function enviarTrabalhoPDF(event) {
+            event.preventDefault();
+            const indexTrabalho = document.getElementById('entregaIndexTrabalho').value;
+            const nomes = document.getElementById('inputNomesAlunos').value;
+            const arquivoInput = document.getElementById('inputFilePDF');
+            const arquivo = arquivoInput.files[0];
+
+            if (!arquivo) {
+                alert('Selecione um arquivo PDF!');
+                return;
+            }
+
+            const leitor = new FileReader();
+            leitor.onload = function(e) {
+                const base64PDF = e.target.result;
+
+                if (!dadosTurmas[turmaAtualID].trabalhos[indexTrabalho].entregas) {
+                    dadosTurmas[turmaAtualID].trabalhos[indexTrabalho].entregas = [];
+                }
+
+                dadosTurmas[turmaAtualID].trabalhos[indexTrabalho].entregas.push({
+                    alunos: nomes,
+                    nomeArquivo: arquivo.name,
+                    dadosPDF: base64PDF,
+                    dataEnvio: new Date().toLocaleDateString('pt-BR')
+                });
+
+                localStorage.setItem('iema_dados_turmas', JSON.stringify(dadosTurmas));
+
+                alert('Trabalho em PDF enviado com sucesso para o professor!');
+                bootstrap.Modal.getInstance(document.getElementById('modalEntregarTrabalho')).hide();
+            };
+            leitor.readAsDataURL(arquivo);
+        }
+
+        function registrarClique(indexMaterial) {
+            if (turmaAtualID && dadosTurmas[turmaAtualID]) {
+                dadosTurmas[turmaAtualID].materiais[indexMaterial].cliques = (dadosTurmas[turmaAtualID].materiais[indexMaterial].cliques || 0) + 1;
+                localStorage.setItem('iema_dados_turmas', JSON.stringify(dadosTurmas));
+            }
+        }
+
+        function renderizarMateriais(materiais) {
+            const listaMat = document.getElementById('listaMateriais');
+            if (!listaMat) return;
+            listaMat.innerHTML = '';
+            
+            materiais.forEach((m, index) => {
+                const badgeNovo = m.novo ? '<span class="badge-novo">Novo</span>' : '';
+                const totalCliques = m.cliques || 0;
+                listaMat.innerHTML += `
+                    <div class="material-item">
+                        <div>
+                            <strong>${m.titulo}</strong> ${badgeNovo}
+                            <div class="mt-1"><span class="badge-downloads"><i class="fa-solid fa-eye me-1"></i> ${totalCliques} acessos</span></div>
+                        </div>
+                        <a href="${m.link}" target="_blank" onclick="registrarClique(${index})"><i class="fa-solid fa-download"></i> Acessar</a>
+                    </div>
+                `;
+            });
+        }
+
+        function filtrarMateriais() {
+            const inputBusca = document.getElementById('inputBusca');
+            if (!inputBusca) return;
+            const termo = inputBusca.value.toLowerCase();
+            const turma = dadosTurmas[turmaAtualID];
+            const filtrados = turma.materiais.filter(m => m.titulo.toLowerCase().includes(termo));
+            renderizarMateriais(filtrados);
+        }
+
+        function voltarHome() {
+            document.getElementById('secao-turma').style.display = 'none';
+            document.getElementById('secao-home').style.display = 'block';
+            document.getElementById('btnVoltar').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Lógica do Timer Pomodoro
+        let pomodoroTempo = 25 * 60;
+        let pomodoroIntervalo = null;
+        let pomodoroRodando = false;
+        let modoFoco = true;
+
+        function atualizarDisplayPomodoro() {
+            const minutos = Math.floor(pomodoroTempo / 60);
+            const segundos = pomodoroTempo % 60;
+            const display = document.getElementById('pomodoroDisplay');
+            if (display) {
+                display.innerText = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+            }
+        }
+
+        function iniciarPomodoro() {
+            if (pomodoroRodando) return;
+            pomodoroRodando = true;
+            pomodoroIntervalo = setInterval(() => {
+                if (pomodoroTempo > 0) {
+                    pomodoroTempo--;
+                    atualizarDisplayPomodoro();
+                } else {
+                    clearInterval(pomodoroIntervalo);
+                    pomodoroRodando = false;
+                    if (modoFoco) {
+                        alert('Tempo de foco encerrado! Hora de fazer uma pausa de 5 minutos.');
+                        pomodoroTempo = 5 * 60;
+                        modoFoco = false;
+                        document.getElementById('pomodoroModo').innerText = 'Pausa (5m)';
+                    } else {
+                        alert('Pausa encerrada! Vamos voltar ao foco nos estudos.');
+                        pomodoroTempo = 25 * 60;
+                        modoFoco = true;
+                        document.getElementById('pomodoroModo').innerText = 'Foco (25m)';
+                    }
+                    atualizarDisplayPomodoro();
+                }
+            }, 1000);
+        }
+
+        function pausarPomodoro() {
+            clearInterval(pomodoroIntervalo);
+            pomodoroRodando = false;
+        }
+
+        function resetarPomodoro() {
+            clearInterval(pomodoroIntervalo);
+            pomodoroRodando = false;
+            modoFoco = true;
+            pomodoroTempo = 25 * 60;
+            document.getElementById('pomodoroModo').innerText = 'Foco (25m)';
+            atualizarDisplayPomodoro();
+        }
+
+        function abrirModalAdmin() {
+            const modalEl = document.getElementById('modalAdmin');
+            if (modalEl) {
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            }
+        }
+
+        function verificarSenha() {
+            const senhaInput = document.getElementById('senhaAdmin');
+            if (!senhaInput) return;
+            const senha = senhaInput.value;
+            if (senha === 'We2016si!') {
+                const modalAdminEl = document.getElementById('modalAdmin');
+                if (modalAdminEl) {
+                    bootstrap.Modal.getInstance(modalAdminEl).hide();
+                }
+                senhaInput.value = '';
+                popularSelectAdmin();
+                const modalGerenciarEl = document.getElementById('modalGerenciar');
+                if (modalGerenciarEl) {
+                    const modalGerenciar = new bootstrap.Modal(modalGerenciarEl);
+                    modalGerenciar.show();
+                }
+            } else {
+                alert('Senha incorreta!');
+            }
+        }
+
+        function popularSelectAdmin() {
+            const selectAdd = document.getElementById('selectTurmaAdmin');
+            const selectEntregas = document.getElementById('selectTurmaEntregas');
+            if (selectAdd) selectAdd.innerHTML = '';
+            if (selectEntregas) selectEntregas.innerHTML = '';
+
+            listaNomesTurmas.forEach((nomeTurma, index) => {
+                const id = `turma-${index + 1}`;
+                if (selectAdd) selectAdd.innerHTML += `<option value="${id}">${nomeTurma}</option>`;
+                if (selectEntregas) selectEntregas.innerHTML += `<option value="${id}">${nomeTurma}</option>`;
+            });
+            carregarEntregasAdmin();
+        }
+
+        function carregarEntregasAdmin() {
+            const turmaID = document.getElementById('selectTurmaEntregas').value;
+            const tbody = document.getElementById('tabelaEntregasAdmin');
+            if (!tbody || !turmaID) return;
+
+            tbody.innerHTML = '';
+            const turma = dadosTurmas[turmaID];
+            let totalEntregas = 0;
+
+            turma.trabalhos.forEach(t => {
+                if (t.entregas && t.entregas.length > 0) {
+                    t.entregas.forEach(e => {
+                        totalEntregas++;
+                        tbody.innerHTML += `
+                            <tr>
+                                <td><strong>${t.titulo}</strong></td>
+                                <td>${e.alunos} <br><small class="text-muted">Enviado em: ${e.dataEnvio}</small></td>
+                                <td><a href="${e.dadosPDF}" download="${e.nomeArquivo}" class="btn btn-sm btn-success fw-bold"><i class="fa-solid fa-download me-1"></i> Baixar PDF</a></td>
+                            </tr>
+                        `;
+                    });
+                }
+            });
+
+            if (totalEntregas === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" class="text-center text-muted py-4">Nenhum PDF enviado para esta turma ainda.</td></tr>`;
+            }
+        }
+
+        function alternarCamposAdicao() {
+            const tipoEl = document.getElementById('tipoAdicao');
+            if (!tipoEl) return;
+            const tipo = tipoEl.value;
+            const labelTitulo = document.getElementById('labelTituloItem');
+            const labelExtra = document.getElementById('labelExtraItem');
+            const campoExtra = document.getElementById('inputExtraItem');
+
+            if (tipo === 'material') {
+                labelTitulo.innerText = "Título do Material";
+                labelExtra.innerText = "Link do Google Drive";
+                campoExtra.placeholder = "https://drive.google.com/...";
+                campoExtra.type = "text";
+                campoExtra.disabled = false;
+            } else if (tipo === 'trabalho') {
+                labelTitulo.innerText = "Nome da Atividade / Trabalho";
+                labelExtra.innerText = "Data Limite de Entrega";
+                campoExtra.placeholder = "";
+                campoExtra.type = "date";
+                campoExtra.disabled = false;
+            } else if (tipo === 'aviso') {
+                labelTitulo.innerText = "Novo Texto do Mural de Avisos";
+                labelExtra.innerText = "Não aplicável";
+                campoExtra.value = "";
+                campoExtra.disabled = true;
+            }
+        }
+
+        function salvarNovoConteudo(event) {
+            event.preventDefault();
+            const turmaID = document.getElementById('selectTurmaAdmin').value;
+            const tipo = document.getElementById('tipoAdicao').value;
+            const titulo = document.getElementById('inputTituloItem').value;
+            const extra = document.getElementById('inputExtraItem').value;
+
+            if (!titulo && tipo !== 'aviso') {
+                alert('Preencha todos os campos!');
+                return;
+            }
+
+            if (tipo === 'material') {
+                dadosTurmas[turmaID].materiais.unshift({ titulo: titulo, link: extra, novo: true, cliques: 0 });
+            } else if (tipo === 'trabalho') {
+                dadosTurmas[turmaID].trabalhos.push({ titulo: titulo, data: extra, entregas: [] });
+            } else if (tipo === 'aviso') {
+                dadosTurmas[turmaID].aviso = titulo;
+            }
+
+            localStorage.setItem('iema_dados_turmas', JSON.stringify(dadosTurmas));
+
+            alert('Conteúdo publicado com sucesso!');
+            const modalGerenciarEl = document.getElementById('modalGerenciar');
+            if (modalGerenciarEl) {
+                bootstrap.Modal.getInstance(modalGerenciarEl).hide();
+            }
+            const formEl = document.getElementById('formAdicionar');
+            if (formEl) formEl.reset();
+
+            if (turmaAtualID === turmaID) {
+                abrirTurma(turmaID);
+            }
+        }
+    </script>
+</body>
+</html>
