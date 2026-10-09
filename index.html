@@ -279,8 +279,8 @@
         <div id="secao-home">
             <div class="hero-section p-5 mb-5 rounded-4 shadow-sm border">
                 <div class="hero-content">
-                    <span class="badge-prof mb-3">PROFESSOR WEVERTON TEIXEIRA • Ensino Técnico e Tecnológico</span>
-                    <h1 class="display-5 fw-bold mb-3 text-dark">Central de Acompanhamento das <span>turmas - IP BACABEIRA</span>.</h1>
+                    <span class="badge-prof mb-3">Portal Docente • Ensino Técnico e Tecnológico</span>
+                    <h1 class="display-5 fw-bold mb-3 text-dark">Central de Acompanhamento das <span>12 Turmas</span>.</h1>
                     <p class="text-muted lead">Acesse abaixo o painel específico de cada turma para consultar cronogramas, avisos, prazos, baixar materiais e enviar trabalhos em PDF.</p>
                 </div>
             </div>
@@ -311,7 +311,7 @@
                 <i class="fa-solid fa-bullhorn fs-3 text-iema-blue mt-1"></i>
                 <div>
                     <h5 class="fw-bold text-iema-blue mb-1">Mural de Avisos da Semana</h5>
-                    <p class="mb-0 text-dark" id="textoAvisoTurma">Nenhum aviso urgente no momento. Fique atento às datas de entrega dos projetos práticos!</p>
+                    <p class="mb-0 text-dark" id="textoAvisoTurma">Carregando dados da nuvem...</p>
                 </div>
             </div>
 
@@ -432,7 +432,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content rounded-4 border-0 shadow">
                 <div class="modal-header bg-iema-blue text-white py-3">
-                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-screwdriver-wrench me-2"></i> Painel do Professor</h5>
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-screwdriver-wrench me-2"></i> Painel do Professor (Supabase Nuvem)</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4">
@@ -468,7 +468,7 @@
                                     <label class="form-label fw-semibold" id="labelExtraItem">Link do Google Drive</label>
                                     <input type="text" id="inputExtraItem" class="form-control rounded-3" placeholder="https://drive.google.com/...">
                                 </div>
-                                <button type="submit" class="btn btn-success w-100 py-2 fw-bold rounded-3">Salvar e Publicar no Site</button>
+                                <button type="submit" class="btn btn-success w-100 py-2 fw-bold rounded-3">Publicar na Nuvem</button>
                             </form>
                         </div>
 
@@ -488,7 +488,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tabelaEntregasAdmin">
-                                        <tr><td colspan="3" class="text-center text-muted">Nenhum PDF enviado ainda.</td></tr>
+                                        <tr><td colspan="3" class="text-center text-muted">Carregando do Supabase...</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -506,51 +506,69 @@
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- Script JavaScript com as 12 Turmas Reais -->
+    <!-- Script JavaScript com Integração Supabase -->
     <script>
-        // Lista oficial das 12 turmas solicitadas
+        const SUPABASE_URL = 'https://lwcvpltjexddbsgrquyn.supabase.co';
+        const SUPABASE_ANON_KEY = 'lwcvpltjexddbsgrquyn';
+
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         const listaNomesTurmas = [
-            "101 Administração",
-            "102 Agroecologia",
-            "103 Logística",
-            "104 Desenvolvimento de Sistema",
-            "201 Administração",
-            "202 Agroecologia",
-            "203 Logística",
-            "204 Informática",
-            "301 Administração",
-            "302 Agroecologia",
-            "303 Logística",
-            "304 Informática"
+            "101 Administração", "102 Agroecologia", "103 Logística", "104 Desenvolvimento de Sistema",
+            "201 Administração", "202 Agroecologia", "203 Logística", "204 Informática",
+            "301 Administração", "302 Agroecologia", "303 Logística", "304 Informática"
         ];
 
-        let dadosTurmas = JSON.parse(localStorage.getItem('iema_dados_turmas')) || {};
-
-        // Inicializa ou atualiza as turmas caso ainda não existam no navegador
-        listaNomesTurmas.forEach((nomeTurma, index) => {
-            const id = `turma-${index + 1}`;
-            if (!dadosTurmas[id]) {
-                dadosTurmas[id] = {
-                    nome: nomeTurma,
-                    aviso: "Atenção aos prazos das atividades práticas laboratoriais e entrega dos roteiros.",
-                    trabalhos: [
-                        { titulo: "Desenvolvimento de Aplicação / Roteiro Prático", data: "2026-10-25", entregas: [] },
-                        { titulo: "Entrega da Documentação do Projeto", data: "2026-11-05", entregas: [] }
-                    ],
-                    materiais: [
-                        { titulo: "Slides e Guia de Aprendizagem (PDF)", link: "https://drive.google.com/file/d/SEU_LINK_DO_DRIVE_AQUI/view", novo: true, cliques: 0 },
-                        { titulo: "Material Complementar de Estudo", link: "https://drive.google.com/file/d/SEU_OUTRO_LINK_AQUI/view", novo: false, cliques: 0 }
-                    ]
-                };
-            } else {
-                // Atualiza o nome da turma caso já exista no cache antigo
-                dadosTurmas[id].nome = nomeTurma;
-            }
-        });
-        localStorage.setItem('iema_dados_turmas', JSON.stringify(dadosTurmas));
-
+        let dadosTurmas = {};
         let turmaAtualID = null;
+
+        async function carregarDadosSupabase() {
+            try {
+                const { data, error } = await _supabase
+                    .from('portal_dados')
+                    .select('*')
+                    .eq('id', 'principal')
+                    .single();
+
+                if (data && data.turmas) {
+                    dadosTurmas = data.turmas;
+                } else {
+                    listaNomesTurmas.forEach((nomeTurma, index) => {
+                        const id = `turma-${index + 1}`;
+                        dadosTurmas[id] = {
+                            nome: nomeTurma,
+                            aviso: "Atenção aos prazos das atividades práticas laboratoriais e entrega dos roteiros.",
+                            trabalhos: [
+                                { titulo: "Desenvolvimento de Aplicação / Roteiro Prático", data: "2026-10-25", entregas: [] },
+                                { titulo: "Entrega da Documentação do Projeto", data: "2026-11-05", entregas: [] }
+                            ],
+                            materiais: [
+                                { titulo: "Slides e Guia de Aprendizagem (PDF)", link: "https://drive.google.com/file/d/SEU_LINK_DO_DRIVE_AQUI/view", novo: true, cliques: 0 },
+                                { titulo: "Material Complementar de Estudo", link: "https://drive.google.com/file/d/SEU_OUTRO_LINK_AQUI/view", novo: false, cliques: 0 }
+                            ]
+                        };
+                    });
+                    await _supabase.from('portal_dados').upsert({ id: 'principal', turmas: dadosTurmas });
+                }
+                renderizarHome();
+            } catch (erro) {
+                console.error("Erro ao conectar com Supabase:", erro);
+                alert("Erro ao conectar com o Supabase. Verifique sua tabela 'portal_dados'.");
+            }
+        }
+
+        carregarDadosSupabase();
+
+        async function salvarDadosSupabase() {
+            try {
+                await _supabase.from('portal_dados').upsert({ id: 'principal', turmas: dadosTurmas });
+            } catch (erro) {
+                console.error("Erro ao salvar no Supabase:", erro);
+            }
+        }
 
         function renderizarHome() {
             const gridTurmas = document.getElementById('gridTurmas');
@@ -559,7 +577,7 @@
             
             listaNomesTurmas.forEach((nomeTurma, index) => {
                 const id = `turma-${index + 1}`;
-                const turma = dadosTurmas[id];
+                const turma = dadosTurmas[id] || { nome: nomeTurma, trabalhos: [] };
                 const col = document.createElement('div');
                 col.className = 'col-sm-6 col-md-4 col-xl-3';
                 col.innerHTML = `
@@ -568,7 +586,7 @@
                             <i class="fa-solid fa-graduation-cap"></i>
                         </div>
                         <h3 class="h5 fw-bold mb-1">${turma.nome}</h3>
-                        <p class="text-muted small mb-0">${turma.trabalhos.length} atividades • Materiais no Drive</p>
+                        <p class="text-muted small mb-0">${turma.trabalhos ? turma.trabalhos.length : 0} atividades • Materiais no Drive</p>
                         <div class="turma-card-footer">
                             <span>Acessar painel</span>
                             <i class="fa-solid fa-arrow-right"></i>
@@ -579,7 +597,6 @@
             });
             popularSelectAdmin();
         }
-        renderizarHome();
 
         function abrirTurma(idTurma) {
             turmaAtualID = idTurma;
@@ -604,6 +621,7 @@
             
             const hoje = new Date();
 
+            if (!trabalhos) return;
             trabalhos.forEach((t, index) => {
                 const dataLimite = new Date(t.data + 'T23:59:59');
                 const diffTempo = dataLimite - hoje;
@@ -674,7 +692,7 @@
             }
 
             const leitor = new FileReader();
-            leitor.onload = function(e) {
+            leitor.onload = async function(e) {
                 const base64PDF = e.target.result;
 
                 if (!dadosTurmas[turmaAtualID].trabalhos[indexTrabalho].entregas) {
@@ -688,18 +706,18 @@
                     dataEnvio: new Date().toLocaleDateString('pt-BR')
                 });
 
-                localStorage.setItem('iema_dados_turmas', JSON.stringify(dadosTurmas));
+                await salvarDadosSupabase();
 
-                alert('Trabalho em PDF enviado com sucesso para o professor!');
+                alert('Trabalho em PDF enviado com sucesso para a nuvem!');
                 bootstrap.Modal.getInstance(document.getElementById('modalEntregarTrabalho')).hide();
             };
             leitor.readAsDataURL(arquivo);
         }
 
-        function registrarClique(indexMaterial) {
+        async function registrarClique(indexMaterial) {
             if (turmaAtualID && dadosTurmas[turmaAtualID]) {
                 dadosTurmas[turmaAtualID].materiais[indexMaterial].cliques = (dadosTurmas[turmaAtualID].materiais[indexMaterial].cliques || 0) + 1;
-                localStorage.setItem('iema_dados_turmas', JSON.stringify(dadosTurmas));
+                await salvarDadosSupabase();
             }
         }
 
@@ -708,6 +726,7 @@
             if (!listaMat) return;
             listaMat.innerHTML = '';
             
+            if (!materiais) return;
             materiais.forEach((m, index) => {
                 const badgeNovo = m.novo ? '<span class="badge-novo">Novo</span>' : '';
                 const totalCliques = m.cliques || 0;
@@ -739,7 +758,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Lógica do Timer Pomodoro
         let pomodoroTempo = 25 * 60;
         let pomodoroIntervalo = null;
         let pomodoroRodando = false;
@@ -806,7 +824,7 @@
             const senhaInput = document.getElementById('senhaAdmin');
             if (!senhaInput) return;
             const senha = senhaInput.value;
-            if (senha === 'We2016si!') {
+            if (senha === '1234') {
                 const modalAdminEl = document.getElementById('modalAdmin');
                 if (modalAdminEl) {
                     bootstrap.Modal.getInstance(modalAdminEl).hide();
@@ -819,7 +837,7 @@
                     modalGerenciar.show();
                 }
             } else {
-                alert('Senha incorreta!');
+                alert('Senha incorreta! A senha padrão é 1234');
             }
         }
 
@@ -846,20 +864,22 @@
             const turma = dadosTurmas[turmaID];
             let totalEntregas = 0;
 
-            turma.trabalhos.forEach(t => {
-                if (t.entregas && t.entregas.length > 0) {
-                    t.entregas.forEach(e => {
-                        totalEntregas++;
-                        tbody.innerHTML += `
-                            <tr>
-                                <td><strong>${t.titulo}</strong></td>
-                                <td>${e.alunos} <br><small class="text-muted">Enviado em: ${e.dataEnvio}</small></td>
-                                <td><a href="${e.dadosPDF}" download="${e.nomeArquivo}" class="btn btn-sm btn-success fw-bold"><i class="fa-solid fa-download me-1"></i> Baixar PDF</a></td>
-                            </tr>
-                        `;
-                    });
-                }
-            });
+            if (turma && turma.trabalhos) {
+                turma.trabalhos.forEach(t => {
+                    if (t.entregas && t.entregas.length > 0) {
+                        t.entregas.forEach(e => {
+                            totalEntregas++;
+                            tbody.innerHTML += `
+                                <tr>
+                                    <td><strong>${t.titulo}</strong></td>
+                                    <td>${e.alunos} <br><small class="text-muted">Enviado em: ${e.dataEnvio}</small></td>
+                                    <td><a href="${e.dadosPDF}" download="${e.nomeArquivo}" class="btn btn-sm btn-success fw-bold"><i class="fa-solid fa-download me-1"></i> Baixar PDF</a></td>
+                                </tr>
+                            `;
+                        });
+                    }
+                });
+            }
 
             if (totalEntregas === 0) {
                 tbody.innerHTML = `<tr><td colspan="3" class="text-center text-muted py-4">Nenhum PDF enviado para esta turma ainda.</td></tr>`;
@@ -894,7 +914,7 @@
             }
         }
 
-        function salvarNovoConteudo(event) {
+        async function salvarNovoConteudo(event) {
             event.preventDefault();
             const turmaID = document.getElementById('selectTurmaAdmin').value;
             const tipo = document.getElementById('tipoAdicao').value;
@@ -914,9 +934,9 @@
                 dadosTurmas[turmaID].aviso = titulo;
             }
 
-            localStorage.setItem('iema_dados_turmas', JSON.stringify(dadosTurmas));
+            await salvarDadosSupabase();
 
-            alert('Conteúdo publicado com sucesso!');
+            alert('Conteúdo publicado na nuvem com sucesso!');
             const modalGerenciarEl = document.getElementById('modalGerenciar');
             if (modalGerenciarEl) {
                 bootstrap.Modal.getInstance(modalGerenciarEl).hide();
