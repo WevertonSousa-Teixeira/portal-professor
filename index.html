@@ -314,42 +314,76 @@
         </div>
     </div>
 
-    <!-- Modal Gerenciar -->
+    <!-- Modal Gerenciar (Completo com as Abas Ricas) -->
     <div class="modal fade" id="modalGerenciar" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content rounded-4 border-0 shadow p-4">
-                <ul class="nav nav-pills mb-3" id="pills-tab">
-                    <li class="nav-item"><button class="nav-link active fw-bold" data-bs-toggle="pill" data-bs-target="#pills-add">Adicionar Conteúdo</button></li>
-                    <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#pills-gerenciar" onclick="carregarListaGerenciamento()">Gerenciar/Excluir</button></li>
-                    <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#pills-entregas" onclick="carregarEntregasAdmin()">PDFs Recebidos</button></li>
+                <div class="modal-header bg-iema-blue text-white py-3 rounded-3 mb-3">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-screwdriver-wrench me-2"></i> Painel do Professor (Supabase)</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <ul class="nav nav-pills mb-4" id="pills-tab">
+                    <li class="nav-item"><button class="nav-link active fw-bold" data-bs-toggle="pill" data-bs-target="#pills-add"><i class="fa-solid fa-plus me-1"></i> Adicionar Conteúdo</button></li>
+                    <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#pills-gerenciar" onclick="carregarListaGerenciamento()"><i class="fa-solid fa-trash-can me-1"></i> Gerenciar / Excluir Itens</button></li>
+                    <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#pills-entregas" onclick="carregarEntregasAdmin()"><i class="fa-solid fa-file-pdf me-1"></i> PDFs Recebidos</button></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="pills-add">
                         <form onsubmit="salvarNovoConteudo(event)">
-                            <div class="mb-3"><label class="form-label fw-semibold">Turma</label><select id="selectTurmaAdmin" class="form-select rounded-3"></select></div>
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Tipo</label>
+                                <label class="form-label fw-semibold">Selecionar Turma</label>
+                                <select id="selectTurmaAdmin" class="form-select rounded-3"></select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">O que deseja adicionar?</label>
                                 <select id="tipoAdicao" class="form-select rounded-3" onchange="alternarCamposAdicao()">
-                                    <option value="trabalho">Atividade</option>
-                                    <option value="material">Material (Drive)</option>
-                                    <option value="aviso">Aviso</option>
+                                    <option value="material">Novo Material de Aula (Google Drive)</option>
+                                    <option value="trabalho">Novo Trabalho / Atividade</option>
+                                    <option value="aviso">Atualizar Mural de Avisos</option>
                                 </select>
                             </div>
-                            <div class="mb-3"><label class="form-label fw-semibold" id="labelTituloItem">Título</label><input type="text" id="inputTituloItem" class="form-control rounded-3" required></div>
-                            <div class="mb-3" id="campoExtraContainer"><label class="form-label fw-semibold" id="labelExtraItem">Data Limite (AAAA-MM-DD) ou Link</label><input type="text" id="inputExtraItem" class="form-control rounded-3"></div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold" id="labelTituloItem">Título do Material</label>
+                                <input type="text" id="inputTituloItem" class="form-control rounded-3" placeholder="Ex: Slides da Aula 03" required>
+                            </div>
+                            <div class="mb-3" id="campoExtraContainer">
+                                <label class="form-label fw-semibold" id="labelExtraItem">Link do Google Drive</label>
+                                <input type="text" id="inputExtraItem" class="form-control rounded-3" placeholder="https://drive.google.com/...">
+                            </div>
                             <button type="submit" class="btn btn-success w-100 fw-bold py-2">Publicar na Nuvem</button>
                         </form>
                     </div>
                     <div class="tab-pane fade" id="pills-gerenciar">
-                        <select id="selectTurmaGerenciar" class="form-select mb-3 rounded-3" onchange="carregarListaGerenciamento()"></select>
-                        <h6 class="fw-bold text-iema-blue">Atividades:</h6>
-                        <div class="table-responsive mb-3" style="max-height: 120px;"><table class="table table-sm"><tbody id="tabelaGerenciarTrabalhos"></tbody></table></div>
-                        <h6 class="fw-bold text-iema-blue">Materiais:</h6>
-                        <div class="table-responsive" style="max-height: 120px;"><table class="table table-sm"><tbody id="tabelaGerenciarMateriais"></tbody></table></div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Selecione a Turma para Gerenciar</label>
+                            <select id="selectTurmaGerenciar" class="form-select rounded-3 mb-3" onchange="carregarListaGerenciamento()"></select>
+                        </div>
+                        <h6 class="fw-bold text-iema-blue">Atividades / Trabalhos Cadastrados:</h6>
+                        <div class="table-responsive mb-4" style="max-height: 150px; overflow-y: auto;">
+                            <table class="table table-sm align-middle"><tbody id="tabelaGerenciarTrabalhos"></tbody></table>
+                        </div>
+                        <h6 class="fw-bold text-iema-blue">Materiais de Aula Cadastrados:</h6>
+                        <div class="table-responsive" style="max-height: 150px; overflow-y: auto;">
+                            <table class="table table-sm align-middle"><tbody id="tabelaGerenciarMateriais"></tbody></table>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="pills-entregas">
-                        <select id="selectTurmaEntregas" class="form-select mb-3 rounded-3" onchange="carregarEntregasAdmin()"></select>
-                        <div class="table-responsive" style="max-height: 250px;"><table class="table table-striped align-middle"><tbody id="tabelaEntregasAdmin"></tbody></table></div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Selecione a Turma para Ver os PDFs</label>
+                            <select id="selectTurmaEntregas" class="form-select rounded-3 mb-3" onchange="carregarEntregasAdmin()"></select>
+                        </div>
+                        <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
+                            <table class="table table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Atividade</th>
+                                        <th>Aluno(s) / Grupo</th>
+                                        <th>Arquivo PDF</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabelaEntregasAdmin"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -648,7 +682,9 @@
             } else {
                 extra.style.display = 'block';
                 labelExtra.style.display = 'block';
-                extra.placeholder = tipo === 'trabalho' ? "Data Limite (AAAA-MM-DD)" : "Link do Google Drive";
+                labelExtra.innerText = tipo === 'trabalho' ? "Data Limite de Entrega" : "Link do Google Drive";
+                extra.placeholder = tipo === 'trabalho' ? "" : "https://drive.google.com/...";
+                extra.type = tipo === 'trabalho' ? "date" : "text";
             }
         }
 
