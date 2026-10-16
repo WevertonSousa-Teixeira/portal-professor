@@ -279,7 +279,7 @@
         <div id="secao-home">
             <div class="hero-section p-5 mb-5 rounded-4 shadow-sm border">
                 <div class="hero-content">
-                    <span class="badge-prof mb-3">Weverton Teixeira • Ensino Técnico e Tecnológico</span>
+                    <span class="badge-prof mb-3">Portal Docente • Ensino Técnico e Tecnológico</span>
                     <h1 class="display-5 fw-bold mb-3 text-dark">Central de Acompanhamento das <span>12 Turmas</span>.</h1>
                     <p class="text-muted lead">Acesse abaixo o painel específico de cada turma para consultar cronogramas, avisos, prazos, baixar materiais e enviar trabalhos em PDF.</p>
                 </div>
@@ -419,7 +419,7 @@
                     <p class="text-muted small mb-3">Digite a senha de professor para gerenciar conteúdos, excluir erros ou baixar os PDFs.</p>
                     <div class="mb-3">
                         <label class="form-label fw-semibold small">Senha de Acesso</label>
-                        <input type="password" id="senhaAdmin" class="form-control rounded-3" placeholder="Digite a senha">
+                        <input type="password" id="senhaAdmin" class="form-control rounded-3" placeholder="Senha padrão: 1234">
                     </div>
                     <button type="button" class="btn btn-iema w-100 py-2 fw-bold rounded-3" onclick="verificarSenha()">Entrar no Painel</button>
                 </div>
@@ -427,7 +427,7 @@
         </div>
     </div>
 
-    <!-- Modal de Gestão do Professor (Com Abas de Gerenciamento e Exclusão) -->
+    <!-- Modal de Gestão do Professor -->
     <div class="modal fade" id="modalGerenciar" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content rounded-4 border-0 shadow">
@@ -449,7 +449,6 @@
                     </ul>
 
                     <div class="tab-content" id="pills-tabContent">
-                        <!-- Adicionar -->
                         <div class="tab-pane fade show active" id="pills-add">
                             <form id="formAdicionar" onsubmit="salvarNovoConteudo(event)">
                                 <div class="mb-3">
@@ -476,7 +475,6 @@
                             </form>
                         </div>
 
-                        <!-- Gerenciar / Excluir -->
                         <div class="tab-pane fade" id="pills-gerenciar">
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Selecione a Turma para Gerenciar</label>
@@ -496,7 +494,6 @@
                             </div>
                         </div>
 
-                        <!-- PDFs Recebidos -->
                         <div class="tab-pane fade" id="pills-entregas">
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Selecione a Turma para Ver os PDFs</label>
@@ -525,7 +522,7 @@
 
     <!-- Rodapé -->
     <footer class="text-center py-4 bg-white border-top text-muted small">
-        <p class="mb-0">&copy; 2026 Weverton Teixeira | Instituto de Educação, Ciência e Tecnologia do Maranhão - IEMA.</p>
+        <p class="mb-0">&copy; 2026 Portal do Professor | Instituto de Educação, Ciência e Tecnologia do Maranhão - IEMA.</p>
     </footer>
 
     <!-- Bootstrap 5 JS -->
@@ -533,10 +530,10 @@
     <!-- Supabase JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- Script JavaScript Completo com Exclusão e Supabase -->
+    <!-- Script JavaScript com a Publishable Key correta inserida -->
     <script>
         const SUPABASE_URL = 'https://lwcvpltjexddbsgrquyn.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_eeoNELOVud0p-jLvV4TQLw_D-Wax-cJ'; // Substitua pelo código completo copiado do Supabase
+        const SUPABASE_ANON_KEY = 'sb_publishable_eeoNELOVud0p-jLvV4TQLw_D-Wax-cJ';
 
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -756,7 +753,7 @@
                 listaMat.innerHTML += `
                     <div class="material-item">
                         <div>
-                            <strong>${m.titulo}</strong> ${badgeNovo}
+                            <strong>${m.titulo}</strong>${badgeNovo}
                             <div class="mt-1"><span class="badge-downloads"><i class="fa-solid fa-eye me-1"></i> ${totalCliques} acessos</span></div>
                         </div>
                         <a href="${m.link}" target="_blank" onclick="registrarClique(${index})"><i class="fa-solid fa-download"></i> Acessar</a>
@@ -882,7 +879,6 @@
             carregarEntregasAdmin();
         }
 
-        // Funções de Gestão e Exclusão na Área do Professor
         function carregarListaGerenciamento() {
             const turmaID = document.getElementById('selectTurmaGerenciar').value;
             const tabelaTrabalhos = document.getElementById('tabelaGerenciarTrabalhos');
@@ -899,7 +895,7 @@
                     tabelaTrabalhos.innerHTML += `
                         <tr>
                             <td>${t.titulo}</td>
-                            <td class="text-end"><button class="btn btn-sm btn-danger fw-bold" onclick="excluirTrabalho('${turmaID}', ${index})"><i class="fa-solid fa-trash"></i> Excluir</button></td>
+                            <td class="text-end"><button class="btn btn-sm btn-danger fw-bold" onclick="excluirTrabalho('${turmaID}',${index})"><i class="fa-solid fa-trash"></i> Excluir</button></td>
                         </tr>
                     `;
                 });
@@ -912,7 +908,7 @@
                     tabelaMateriais.innerHTML += `
                         <tr>
                             <td>${m.titulo}</td>
-                            <td class="text-end"><button class="btn btn-sm btn-danger fw-bold" onclick="excluirMaterial('${turmaID}', ${index})"><i class="fa-solid fa-trash"></i> Excluir</button></td>
+                            <td class="text-end"><button class="btn btn-sm btn-danger fw-bold" onclick="excluirMaterial('${turmaID}',${index})"><i class="fa-solid fa-trash"></i> Excluir</button></td>
                         </tr>
                     `;
                 });
@@ -951,6 +947,7 @@
             let totalEntregas = 0;
 
             if (turma && turma.trabalhos) {
+                turma.trabalhos.format = true; // noop
                 turma.trabalhos.forEach(t => {
                     if (t.entregas && t.entregas.length > 0) {
                         t.entregas.forEach(e => {
@@ -1004,20 +1001,20 @@
             event.preventDefault();
             const turmaID = document.getElementById('selectTurmaAdmin').value;
             const tipo = document.getElementById('tipoAdicao').value;
-            const titulo = document.getElementById('inputTituloItem').value;
-            const extra = document.getElementById('inputExtraItem').value;
+            const inputTitulo = document.getElementById('inputTituloItem').value;
+            const extraVal = document.getElementById('inputExtraItem').value;
 
-            if (!titulo && tipo !== 'aviso') {
+            if (!inputTitulo && tipo !== 'aviso') {
                 alert('Preencha todos os campos!');
                 return;
             }
 
             if (tipo === 'material') {
-                dadosTurmas[turmaID].materiais.unshift({ titulo: titulo, link: extra, novo: true, cliques: 0 });
+                dadosTurmas[turmaID].materiais.unshift({ titulo: inputTitulo, link: extraVal, novo: true, cliques: 0 });
             } else if (tipo === 'trabalho') {
-                dadosTurmas[turmaID].trabalhos.push({ titulo: titulo, data: extra, entregas: [] });
+                dadosTurmas[turmaID].trabalhos.push({ titulo: inputTitulo, data: extraVal, entregas: [] });
             } else if (tipo === 'aviso') {
-                dadosTurmas[turmaID].aviso = titulo;
+                dadosTurmas[turmaID].aviso = inputTitulo;
             }
 
             await salvarDadosSupabase();
