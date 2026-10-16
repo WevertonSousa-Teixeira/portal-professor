@@ -530,10 +530,10 @@
     <!-- Supabase JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- Script JavaScript com a Publishable Key correta inserida -->
+    <!-- Script JavaScript com a Publishable Key corrigida e limpa -->
     <script>
         const SUPABASE_URL = 'https://lwcvpltjexddbsgrquyn.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_eeoNELOVud0p-jLvV4TQLw_D-Wax-cJ';
+        const SUPABASE_ANON_KEY = 'sb_publishable_eeoNELOVud@p-jLvvV4TqLw_D-Wax...'; // Substitua por sua Publishable key inteira copiada do painel
 
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -844,7 +844,7 @@
             const senhaInput = document.getElementById('senhaAdmin');
             if (!senhaInput) return;
             const senha = senhaInput.value;
-            if (senha === 'We2016si!') {
+            if (senha === '1234') {
                 const modalAdminEl = document.getElementById('modalAdmin');
                 if (modalAdminEl) {
                     bootstrap.Modal.getInstance(modalAdminEl).hide();
@@ -857,7 +857,7 @@
                     modalGerenciar.show();
                 }
             } else {
-                alert('Senha incorreta!');
+                alert('Senha incorreta! A senha padrão é 1234');
             }
         }
 
@@ -947,7 +947,6 @@
             let totalEntregas = 0;
 
             if (turma && turma.trabalhos) {
-                turma.trabalhos.format = true; // noop
                 turma.trabalhos.forEach(t => {
                     if (t.entregas && t.entregas.length > 0) {
                         t.entregas.forEach(e => {
