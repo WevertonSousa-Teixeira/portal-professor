@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal do Professor | IEMA</title>
+    <title>Portal do Professor | IEMA Cyber</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,89 +12,109 @@
     
     <style>
         :root {
-            --iema-blue: #005691;       
-            --iema-blue-hover: #003e6b;
-            --iema-red: #d9383a;        
-            --bg-color: #f4f6f9;        
-            --card-bg: #ffffff;
-            --card-border: #dcdfe6;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
+            --bg-deep: #090612;
+            --bg-card: rgba(25, 18, 43, 0.75);
+            --bg-input: #181126;
+            --border-neon: rgba(168, 85, 247, 0.4);
+            --primary-neon: #a855f7;
+            --accent-pink: #ec4899;
+            --text-main: #ffffff;
+            --text-muted: #cbd5e1;
         }
 
         body {
-            background-color: var(--bg-color) !important;
+            background-color: var(--bg-deep) !important;
             color: var(--text-main) !important;
             font-family: 'Plus Jakarta Sans', sans-serif !important;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(168, 85, 247, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(236, 72, 153, 0.1) 0%, transparent 45%);
+            background-attachment: fixed;
+            min-height: 100vh;
         }
 
         header.navbar {
-            background: #ffffff !important;
-            border-bottom: 3px solid var(--iema-blue) !important;
+            background: rgba(15, 10, 26, 0.92) !important;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-neon) !important;
         }
 
         .badge-iema-header {
-            background: linear-gradient(135deg, var(--iema-blue) 0%, var(--iema-red) 100%);
-            font-size: 1.1rem;
+            background: linear-gradient(135deg, var(--primary-neon) 0%, var(--accent-pink) 100%);
+            font-size: 1rem;
             letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
         }
 
-        .text-iema-blue { color: var(--iema-blue) !important; }
-        .bg-iema-blue { background-color: var(--iema-blue) !important; }
+        .text-neon { color: #c084fc !important; }
 
-        .btn-iema {
-            background-color: var(--iema-blue);
-            border: none;
-            color: #fff;
+        .btn-neon {
+            background: transparent;
+            border: 1px solid var(--primary-neon);
+            color: #ffffff;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
         }
-        .btn-iema:hover {
-            background-color: var(--iema-blue-hover);
-            color: #fff;
+        .btn-neon:hover {
+            background: var(--primary-neon);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
         }
 
         .btn-voltar {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--iema-blue);
+            background: var(--bg-card);
+            border: 1px solid var(--border-neon);
+            color: #ffffff;
             border-radius: 50px;
             font-weight: 600;
         }
+        .btn-voltar:hover {
+            border-color: var(--primary-neon);
+            color: #c084fc;
+        }
 
         .hero-section {
-            background: linear-gradient(135deg, #ffffff 0%, #eef3f8 100%);
-            border-left: 6px solid var(--iema-blue) !important;
+            background: linear-gradient(135deg, rgba(25, 18, 43, 0.9) 0%, rgba(10, 7, 18, 0.95) 100%);
+            border: 1px solid var(--border-neon) !important;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
         }
 
         .turma-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-neon);
+            border-radius: 20px;
+            padding: 1.75rem;
             cursor: pointer;
             transition: all 0.3s ease;
             height: 100%;
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .turma-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--iema-blue);
-            box-shadow: 0 10px 25px rgba(0, 86, 145, 0.1);
+            transform: translateY(-6px);
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.35);
         }
 
         .turma-card-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 86, 145, 0.08);
+            width: 45px;
+            height: 45px;
+            background: rgba(168, 85, 247, 0.18);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--iema-blue);
-            font-size: 1.25rem;
+            color: #c084fc;
+            font-size: 1.2rem;
+            box-shadow: inset 0 0 10px rgba(168, 85, 247, 0.25);
         }
 
         .turma-card-footer {
@@ -103,19 +123,39 @@
             justify-content: space-between;
             margin-top: auto;
             padding-top: 1rem;
-            border-top: 1px solid var(--card-border);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             font-size: 0.85rem;
             font-weight: 600;
-            color: var(--iema-blue);
+            color: #c084fc;
         }
 
-        .card-painel { background: var(--card-bg); }
-        .alert-iema { background-color: #e8f1f8; border-color: #b0d1e8 !important; }
-        .table { color: var(--text-main); }
-        
+        .card-painel {
+            background: var(--bg-card) !important;
+            border: 1px solid var(--border-neon) !important;
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+        }
+
+        .alert-iema {
+            background: rgba(168, 85, 247, 0.12) !important;
+            border: 1px solid var(--border-neon) !important;
+            color: #ffffff !important;
+            border-radius: 16px;
+        }
+
+        .table {
+            color: #ffffff !important;
+            background: transparent !important;
+        }
+        .table td, .table th {
+            background: transparent !important;
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
         .prazo-tag { 
-            background: rgba(217, 56, 58, 0.1); 
-            color: var(--iema-red); 
+            background: rgba(236, 72, 153, 0.2); 
+            color: #f472b6; 
             padding: 0.35rem 0.75rem; 
             border-radius: 50px; 
             font-size: 0.8rem; 
@@ -125,8 +165,9 @@
             gap: 0.4rem;
         }
         .tag-urgente { 
-            background: #d9383a !important; 
+            background: #db2777 !important; 
             color: #ffffff !important; 
+            box-shadow: 0 0 12px rgba(219, 39, 119, 0.6);
             animation: pulsar 1.5s infinite; 
         }
         @keyframes pulsar {
@@ -135,22 +176,32 @@
             100% { opacity: 1; }
         }
 
-        .badge-novo { background: #28a745; color: white; font-size: 0.65rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700; text-transform: uppercase; margin-left: 0.5rem; }
-        .badge-downloads { background: #e2e8f0; color: #475569; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 6px; font-weight: 600; margin-left: 0.5rem; }
+        .badge-downloads { 
+            background: rgba(255,255,255,0.12); 
+            color: #cbd5e1; 
+            font-size: 0.7rem; 
+            padding: 0.2rem 0.5rem; 
+            border-radius: 6px; 
+            font-weight: 600; 
+            margin-left: 0.5rem; 
+        }
 
         .material-item {
-            background: #f8fafc;
-            border: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-neon);
             padding: 1rem 1.25rem;
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: 0.2s;
         }
-        .material-item:hover { border-color: var(--iema-blue); background: #ffffff; }
+        .material-item:hover { 
+            border-color: var(--primary-neon); 
+            background: rgba(168, 85, 247, 0.08); 
+        }
         .material-item a {
-            background: var(--iema-blue);
+            background: var(--primary-neon);
             color: #ffffff;
             padding: 0.5rem 1rem;
             border-radius: 8px;
@@ -160,16 +211,90 @@
             display: flex;
             align-items: center;
             gap: 0.4rem;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
         }
 
         .pomodoro-card {
-            background: linear-gradient(135deg, #005691 0%, #003e6b 100%);
+            background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
             color: white;
-            border-radius: 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border-neon);
             padding: 1.5rem;
             text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
-        .pomodoro-timer { font-size: 2.5rem; font-weight: 800; letter-spacing: 2px; margin: 0.5rem 0; }
+        .pomodoro-timer { 
+            font-size: 2.5rem; 
+            font-weight: 800; 
+            letter-spacing: 2px; 
+            margin: 0.5rem 0; 
+            color: #f472b6; 
+            text-shadow: 0 0 15px rgba(244, 114, 182, 0.6); 
+        }
+
+        /* --- CORREÇÃO DE FORMULÁRIOS & MODAIS (ALTO CONTRASTE) --- */
+        .modal-content {
+            background: #140d24 !important;
+            border: 1px solid rgba(168, 85, 247, 0.5) !important;
+            color: #ffffff !important;
+            border-radius: 20px !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .form-label {
+            color: #e2e8f0 !important;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-control, .form-select {
+            background-color: var(--bg-input) !important;
+            border: 1px solid rgba(168, 85, 247, 0.5) !important;
+            color: #ffffff !important;
+            font-weight: 500;
+        }
+
+        .form-control::placeholder {
+            color: #94a3b8 !important;
+            opacity: 1;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: #1e1430 !important;
+            border-color: #c084fc !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 12px rgba(192, 132, 252, 0.5) !important;
+            outline: none;
+        }
+
+        /* Forçar opções do select legíveis */
+        .form-select option {
+            background-color: #140d24 !important;
+            color: #ffffff !important;
+            padding: 8px;
+        }
+
+        .form-control:disabled, .form-control[readonly] {
+            background-color: #0f0a1c !important;
+            color: #cbd5e1 !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .icon-sucesso-neon {
+            width: 70px;
+            height: 70px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 2px solid #10b981;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #10b981;
+            font-size: 2rem;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -179,12 +304,12 @@
             <a class="navbar-brand logo d-flex align-items-center gap-3" href="#">
                 <div class="badge-iema-header d-flex align-items-center px-3 py-1 rounded-2 text-white fw-bold">IEMA</div>
                 <div class="d-flex flex-column">
-                    <span class="fs-6 fw-extrabold text-dark lh-1">GOVERNO DO MARANHÃO</span>
-                    <small class="text-muted" style="font-size: 0.7rem;">Secretaria de Estado da Educação</small>
+                    <span class="fs-6 fw-extrabold text-white lh-1">GOVERNO DO MARANHÃO</span>
+                    <small class="text-muted" style="font-size: 0.7rem; color: #cbd5e1 !important;">Secretaria de Estado da Educação</small>
                 </div>
             </a>
             <div class="d-flex align-items-center gap-2">
-                <button class="btn btn-outline-dark btn-sm rounded-pill px-3 fw-semibold" onclick="abrirModalAdmin()">
+                <button class="btn btn-neon btn-sm rounded-pill px-3 py-2 fw-semibold" onclick="abrirModalAdmin()">
                     <i class="fa-solid fa-lock me-1"></i> Área do Professor
                 </button>
                 <button class="btn btn-voltar px-4 py-2 shadow-sm" id="btnVoltar" onclick="voltarHome()" style="display: none;">
@@ -196,13 +321,13 @@
 
     <main class="container my-5 flex-grow-1">
         <div id="secao-home">
-            <div class="hero-section p-5 mb-5 rounded-4 shadow-sm border">
-                <span class="badge-prof mb-3">Prof: Weverton Teixeira • Ensino Técnico e Tecnológico</span>
-                <h1 class="display-5 fw-bold mb-3 text-dark">Central de Acompanhamento das <span>12 Turmas</span>.</h1>
-                <p class="text-muted lead">Acesse abaixo o painel específico de cada turma para consultar cronogramas, avisos, prazos, baixar materiais e enviar trabalhos em PDF.</p>
+            <div class="hero-section p-5 mb-5 shadow-sm">
+                <span class="badge-prof mb-3" style="background: rgba(168, 85, 247, 0.2); color: #e9d5ff; padding: 4px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: 700;">Portal Docente • Cyber Tech</span>
+                <h1 class="display-5 fw-bold mb-3 text-white">Central de Acompanhamento das <span class="text-neon">12 Turmas</span>.</h1>
+                <p class="lead" style="color: #cbd5e1;">Acesse abaixo o painel específico de cada turma para consultar cronogramas, avisos, prazos, baixar materiais e enviar trabalhos em PDF.</p>
             </div>
-            <div class="section-title mb-4 fs-4 fw-bold text-dark">
-                <i class="fa-solid fa-layer-group text-iema-blue"></i> Selecione a Turma
+            <div class="section-title mb-4 fs-4 fw-bold text-white">
+                <i class="fa-solid fa-layer-group text-neon"></i> Selecione a Turma
             </div>
             <div class="row g-4" id="gridTurmas"></div>
         </div>
@@ -210,35 +335,35 @@
         <section id="secao-turma" style="display: none;">
             <div class="turma-topo mb-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
                 <div>
-                    <h2 id="tituloTurma" class="fw-bold text-dark mb-1">Turma</h2>
-                    <p class="text-muted mb-0">Ambiente exclusivo de conteúdos, avisos e cronograma acadêmico.</p>
+                    <h2 id="tituloTurma" class="fw-bold text-white mb-1">Turma</h2>
+                    <p class="mb-0" style="color: #cbd5e1;">Ambiente exclusivo de conteúdos, avisos e cronograma acadêmico.</p>
                 </div>
-                <a href="https://wa.me/message/ABP4ZC7XPV22L1" target="_blank" class="btn btn-success rounded-pill px-4 fw-semibold shadow-sm">
+                <a href="https://wa.me/" target="_blank" class="btn btn-success rounded-pill px-4 fw-semibold shadow-sm" style="background: #10b981; border: none; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);">
                     <i class="fa-brands fa-whatsapp me-2"></i> Plantão de Dúvidas
                 </a>
             </div>
 
-            <div class="alert alert-iema mb-4 rounded-4 shadow-sm border p-4 d-flex align-items-start gap-3">
-                <i class="fa-solid fa-bullhorn fs-3 text-iema-blue mt-1"></i>
+            <div class="alert alert-iema mb-4 shadow-sm p-4 d-flex align-items-start gap-3">
+                <i class="fa-solid fa-bullhorn fs-3 text-neon mt-1"></i>
                 <div>
-                    <h5 class="fw-bold text-iema-blue mb-1">Mural de Avisos da Semana</h5>
-                    <p class="mb-0 text-dark" id="textoAvisoTurma">Carregando dados da nuvem...</p>
+                    <h5 class="fw-bold text-neon mb-1">Mural de Avisos da Semana</h5>
+                    <p class="mb-0 text-white" id="textoAvisoTurma">Carregando dados da nuvem...</p>
                 </div>
             </div>
 
             <div class="row g-4">
                 <div class="col-lg-7 d-flex flex-column gap-4">
-                    <div class="card-painel p-4 rounded-4 shadow-sm border">
+                    <div class="card-painel p-4 shadow-sm">
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h3 class="h5 fw-bold mb-0 text-iema-blue"><i class="fa-solid fa-calendar-days"></i> Atividades e Prazos de Entrega</h3>
+                            <h3 class="h5 fw-bold mb-0 text-neon"><i class="fa-solid fa-calendar-days"></i> Atividades e Prazos de Entrega</h3>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle mb-0">
+                            <table class="table align-middle mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Atividade / Projeto</th>
-                                        <th>Data Limite</th>
-                                        <th class="text-end">Ação</th>
+                                        <th style="color: #cbd5e1;">Atividade / Projeto</th>
+                                        <th style="color: #cbd5e1;">Data Limite</th>
+                                        <th class="text-end" style="color: #cbd5e1;">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tabelaTrabalhos"></tbody>
@@ -249,12 +374,12 @@
                     <div class="pomodoro-card shadow-sm">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h5 class="fw-bold mb-0"><i class="fa-solid fa-stopwatch me-2"></i> Pomodoro de Estudos</h5>
-                            <span class="badge bg-light text-dark fw-bold" id="pomodoroModo">Foco (25m)</span>
+                            <span class="badge text-white fw-bold" id="pomodoroModo" style="background: rgba(255,255,255,0.15);">Foco (25m)</span>
                         </div>
                         <p class="small text-white-50 mb-1">Concentre-se nos estudos para a prova sem distrações!</p>
                         <div class="pomodoro-timer" id="pomodoroDisplay">25:00</div>
                         <div class="d-flex justify-content-center gap-2 mt-3">
-                            <button class="btn btn-light btn-sm fw-bold px-3 text-primary" onclick="iniciarPomodoro()">Iniciar</button>
+                            <button class="btn btn-light btn-sm fw-bold px-3 text-dark" onclick="iniciarPomodoro()">Iniciar</button>
                             <button class="btn btn-outline-light btn-sm fw-bold px-3" onclick="pausarPomodoro()">Pausar</button>
                             <button class="btn btn-outline-light btn-sm fw-bold px-3" onclick="resetarPomodoro()">Resetar</button>
                         </div>
@@ -262,11 +387,11 @@
                 </div>
 
                 <div class="col-lg-5 d-flex flex-column gap-4">
-                    <div class="card-painel p-4 rounded-4 shadow-sm border">
-                        <h3 class="h5 fw-bold mb-3 text-iema-blue"><i class="fa-solid fa-folder-open"></i> Materiais de Aula</h3>
+                    <div class="card-painel p-4 shadow-sm">
+                        <h3 class="h5 fw-bold mb-3 text-neon"><i class="fa-solid fa-folder-open"></i> Materiais de Aula</h3>
                         <div class="input-group mb-3">
-                            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
-                            <input type="text" id="inputBusca" class="form-control border-start-0 bg-light" placeholder="Pesquisar material..." onkeyup="filtrarMateriais()">
+                            <span class="input-group-text bg-transparent text-white" style="border-color: var(--border-neon);"><i class="fa-solid fa-search"></i></span>
+                            <input type="text" id="inputBusca" class="form-control" placeholder="Pesquisar material..." onkeyup="filtrarMateriais()">
                         </div>
                         <div class="materiais-list d-flex flex-column gap-3" id="listaMateriais"></div>
                     </div>
@@ -278,27 +403,55 @@
     <!-- Modal Entregar PDF -->
     <div class="modal fade" id="modalEntregarTrabalho" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-4 border-0 shadow p-4">
-                <h5 class="fw-bold text-iema-blue mb-3"><i class="fa-solid fa-file-pdf me-2"></i> Enviar Trabalho em PDF</h5>
-                <form onsubmit="enviarTrabalhoPDF(event)">
-                    <input type="hidden" id="entregaIndexTrabalho">
+            <div class="modal-content shadow p-4">
+                <h5 class="modal-title fw-bold text-neon mb-3"><i class="fa-solid fa-file-pdf me-2"></i> Enviar Trabalho em PDF</h5>
+                <form id="formEntregaAluno" onsubmit="enviarTrabalhoPDF(event)">
+                    <input type="hidden" id="entregaTurmaID">
+                    <input type="hidden" id="entregaTituloAtividade">
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Tipo de Envio</label>
+                        <label class="form-label">Atividade Selecionada</label>
+                        <input type="text" id="displayAtividadeTitulo" class="form-control rounded-3" readonly disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tipo de Envio</label>
                         <select id="tipoEnvioAluno" class="form-select rounded-3" onchange="alternarCamposEnvio()">
                             <option value="individual">Individual</option>
                             <option value="grupo">Em Grupo</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold" id="labelNomesAlunos">Nome Completo do Aluno</label>
-                        <input type="text" id="inputNomesAlunos" class="form-control rounded-3" placeholder="Digite o nome do aluno ou do grupo"  required>
+                        <label class="form-label" id="labelNomesAlunos">Nome Completo do Aluno</label>
+                        <input type="text" id="inputNomesAlunos" class="form-control rounded-3" placeholder="Ex: Maria Clara" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Arquivo PDF</label>
+                        <label class="form-label">Arquivo PDF (Máximo 5MB)</label>
                         <input type="file" id="inputFilePDF" class="form-control rounded-3" accept="application/pdf" required>
                     </div>
-                    <button type="submit" class="btn btn-iema w-100 fw-bold py-2">Enviar PDF</button>
+                    <button type="submit" id="btnSubmitPDF" class="btn btn-neon w-100 fw-bold py-2 mt-2">Enviar PDF para o Professor</button>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Caixa de Diálogo Customizada de Sucesso -->
+    <div class="modal fade" id="modalSucessoEnvio" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4 shadow-lg" style="border: 1px solid rgba(16, 185, 129, 0.5) !important;">
+                <div class="modal-body p-2">
+                    <div class="icon-sucesso-neon">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h4 class="fw-bold text-white mb-2">Atenção!</h4>
+                    <p class="mb-1 fs-5 fw-semibold" style="color: #6ee7b7 !important;">
+                        Seu arquivo foi enviado com sucesso!
+                    </p>
+                    <p class="small mb-4" style="color: #cbd5e1 !important;" id="detalhesSucessoEnvio">
+                        O trabalho já foi arquivado e disponibilizado para avaliação docente.
+                    </p>
+                    <button type="button" class="btn btn-neon px-5 py-2 fw-bold" data-bs-dismiss="modal">
+                        Entendido
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -306,36 +459,39 @@
     <!-- Modal Admin -->
     <div class="modal fade" id="modalAdmin" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-4 border-0 shadow p-4">
-                <h5 class="fw-bold text-iema-blue mb-3"><i class="fa-solid fa-lock me-2"></i> Autenticação Docente</h5>
-                <input type="password" id="senhaAdmin" class="form-control mb-3 rounded-3" placeholder="Digite a senha">
-                <button class="btn btn-iema w-100 fw-bold py-2" onclick="verificarSenha()">Entrar no Painel</button>
+            <div class="modal-content shadow p-4">
+                <h5 class="modal-title fw-bold text-neon mb-3"><i class="fa-solid fa-lock me-2"></i> Autenticação Docente</h5>
+                <div class="mb-3">
+                    <label class="form-label">Senha de Acesso</label>
+                    <input type="password" id="senhaAdmin" class="form-control mb-3 rounded-3" placeholder="Digite a senha">
+                </div>
+                <button class="btn btn-neon w-100 fw-bold py-2" onclick="verificarSenha()">Entrar no Painel</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Gerenciar (Completo com as Abas Ricas) -->
+    <!-- Modal Gerenciar -->
     <div class="modal fade" id="modalGerenciar" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content rounded-4 border-0 shadow p-4">
-                <div class="modal-header bg-iema-blue text-white py-3 rounded-3 mb-3">
-                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-screwdriver-wrench me-2"></i> Painel do Professor (Supabase)</h5>
+            <div class="modal-content shadow p-4">
+                <div class="modal-header border-0 pb-3">
+                    <h5 class="modal-title fw-bold text-neon"><i class="fa-solid fa-screwdriver-wrench me-2"></i> Painel do Professor (Supabase)</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <ul class="nav nav-pills mb-4" id="pills-tab">
-                    <li class="nav-item"><button class="nav-link active fw-bold" data-bs-toggle="pill" data-bs-target="#pills-add"><i class="fa-solid fa-plus me-1"></i> Adicionar Conteúdo</button></li>
-                    <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#pills-gerenciar" onclick="carregarListaGerenciamento()"><i class="fa-solid fa-trash-can me-1"></i> Gerenciar / Excluir Itens</button></li>
-                    <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#pills-entregas" onclick="carregarEntregasAdmin()"><i class="fa-solid fa-file-pdf me-1"></i> PDFs Recebidos</button></li>
+                    <li class="nav-item"><button class="nav-link active fw-bold text-white" style="background: var(--primary-neon);" data-bs-toggle="pill" data-bs-target="#pills-add"><i class="fa-solid fa-plus me-1"></i> Adicionar</button></li>
+                    <li class="nav-item ms-2"><button class="nav-link fw-bold text-white" style="background: rgba(255,255,255,0.08);" data-bs-toggle="pill" data-bs-target="#pills-gerenciar" onclick="carregarListaGerenciamento()"><i class="fa-solid fa-trash-can me-1"></i> Gerenciar/Excluir</button></li>
+                    <li class="nav-item ms-2"><button class="nav-link fw-bold text-white" style="background: rgba(255,255,255,0.08);" data-bs-toggle="pill" data-bs-target="#pills-entregas" onclick="carregarEntregasAdmin()"><i class="fa-solid fa-file-pdf me-1"></i> PDFs Recebidos</button></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="pills-add">
                         <form onsubmit="salvarNovoConteudo(event)">
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Selecionar Turma</label>
+                                <label class="form-label">Selecionar Turma</label>
                                 <select id="selectTurmaAdmin" class="form-select rounded-3"></select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">O que deseja adicionar?</label>
+                                <label class="form-label">O que deseja adicionar?</label>
                                 <select id="tipoAdicao" class="form-select rounded-3" onchange="alternarCamposAdicao()">
                                     <option value="material">Novo Material de Aula (Google Drive)</option>
                                     <option value="trabalho">Novo Trabalho / Atividade</option>
@@ -343,42 +499,42 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-semibold" id="labelTituloItem">Título do Material</label>
+                                <label class="form-label" id="labelTituloItem">Título</label>
                                 <input type="text" id="inputTituloItem" class="form-control rounded-3" placeholder="Ex: Slides da Aula 03" required>
                             </div>
                             <div class="mb-3" id="campoExtraContainer">
-                                <label class="form-label fw-semibold" id="labelExtraItem">Link do Google Drive</label>
+                                <label class="form-label" id="labelExtraItem">Link do Google Drive</label>
                                 <input type="text" id="inputExtraItem" class="form-control rounded-3" placeholder="https://drive.google.com/...">
                             </div>
-                            <button type="submit" class="btn btn-success w-100 fw-bold py-2">Publicar na Nuvem</button>
+                            <button type="submit" class="btn btn-neon w-100 fw-bold py-2 mt-2">Publicar na Nuvem</button>
                         </form>
                     </div>
                     <div class="tab-pane fade" id="pills-gerenciar">
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Selecione a Turma para Gerenciar</label>
+                            <label class="form-label">Selecione a Turma</label>
                             <select id="selectTurmaGerenciar" class="form-select rounded-3 mb-3" onchange="carregarListaGerenciamento()"></select>
                         </div>
-                        <h6 class="fw-bold text-iema-blue">Atividades / Trabalhos Cadastrados:</h6>
+                        <h6 class="fw-bold text-neon">Atividades / Trabalhos:</h6>
                         <div class="table-responsive mb-4" style="max-height: 150px; overflow-y: auto;">
                             <table class="table table-sm align-middle"><tbody id="tabelaGerenciarTrabalhos"></tbody></table>
                         </div>
-                        <h6 class="fw-bold text-iema-blue">Materiais de Aula Cadastrados:</h6>
+                        <h6 class="fw-bold text-neon">Materiais de Aula:</h6>
                         <div class="table-responsive" style="max-height: 150px; overflow-y: auto;">
                             <table class="table table-sm align-middle"><tbody id="tabelaGerenciarMateriais"></tbody></table>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="pills-entregas">
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Selecione a Turma para Ver os PDFs</label>
+                            <label class="form-label">Selecione a Turma</label>
                             <select id="selectTurmaEntregas" class="form-select rounded-3 mb-3" onchange="carregarEntregasAdmin()"></select>
                         </div>
-                        <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
-                            <table class="table table-striped align-middle">
+                        <div class="table-responsive" style="max-height: 280px; overflow-y: auto;">
+                            <table class="table align-middle">
                                 <thead>
                                     <tr>
-                                        <th>Atividade</th>
-                                        <th>Aluno(s) / Grupo</th>
-                                        <th>Arquivo PDF</th>
+                                        <th style="color: #cbd5e1;">Atividade</th>
+                                        <th style="color: #cbd5e1;">Aluno(s)</th>
+                                        <th class="text-end" style="color: #cbd5e1;">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tabelaEntregasAdmin"></tbody>
@@ -409,12 +565,25 @@
 
         async function carregarDadosSupabase() {
             try {
-                const { data } = await _supabase.from('portal_dados').select('*').eq('id', 'principal').single();
+                const { data, error } = await _supabase.from('portal_dados').select('*').eq('id', 'principal').single();
                 if (data && data.turmas) {
                     dadosTurmas = data.turmas;
                 } else {
                     inicializarDadosPadrao();
                 }
+                
+                listaNomesTurmas.forEach((nome, i) => {
+                    const id = `turma-${i+1}`;
+                    if (!dadosTurmas[id]) {
+                        dadosTurmas[id] = {
+                            nome: nome,
+                            aviso: "Atenção aos prazos e cronograma acadêmico.",
+                            trabalhos: [{ titulo: "Atividade Prática 01", data: "2026-11-01" }],
+                            materiais: [{ titulo: "Guia da Disciplina", link: "#", novo: true, cliques: 0 }]
+                        };
+                    }
+                });
+
                 renderizarHome();
             } catch (e) {
                 console.error("Erro Supabase:", e);
@@ -427,9 +596,9 @@
             listaNomesTurmas.forEach((nome, i) => {
                 dadosTurmas[`turma-${i+1}`] = {
                     nome: nome,
-                    aviso: "Atenção aos prazos e cronograma.",
-                    trabalhos: [{ titulo: "Atividade Inicial", data: "2026-11-01", entregas: [] }],
-                    materiais: [{ titulo: "Material Base", link: "#", novo: true, cliques: 0 }]
+                    aviso: "Atenção aos prazos e cronograma acadêmico.",
+                    trabalhos: [{ titulo: "Atividade Prática 01", data: "2026-11-01" }],
+                    materiais: [{ titulo: "Guia da Disciplina", link: "#", novo: true, cliques: 0 }]
                 };
             });
             salvarDadosSupabase();
@@ -460,8 +629,8 @@
                     <div class="col-sm-6 col-md-4 col-xl-3">
                         <div class="turma-card" onclick="abrirTurma('${id}')">
                             <div class="turma-card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                            <h3 class="h5 fw-bold mb-1">${t.nome}</h3>
-                            <p class="text-muted small mb-0">${qtdTrab} atividades</p>
+                            <h3 class="h5 fw-bold mb-1 text-white">${t.nome}</h3>
+                            <p class="small mb-0" style="color: #cbd5e1;">${qtdTrab} atividades ativas</p>
                             <div class="turma-card-footer"><span>Acessar</span><i class="fa-solid fa-arrow-right"></i></div>
                         </div>
                     </div>`;
@@ -477,7 +646,7 @@
             const t = dadosTurmas[id];
             document.getElementById('tituloTurma').innerText = t.nome || "Turma";
             document.getElementById('textoAvisoTurma').innerText = t.aviso || "Sem avisos no momento.";
-            renderizarTrabalhos(t.trabalhos || []);
+            renderizarTrabalhos(t.trabalhos || [], id);
             renderizarMateriais(t.materiais || []);
             document.getElementById('secao-home').style.display = 'none';
             document.getElementById('secao-turma').style.display = 'block';
@@ -485,12 +654,12 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function renderizarTrabalhos(trabalhos) {
+        function renderizarTrabalhos(trabalhos, idTurma) {
             const tbody = document.getElementById('tabelaTrabalhos');
             if (!tbody) return;
             tbody.innerHTML = '';
             if (!trabalhos || trabalhos.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" class="text-center text-muted">Nenhuma atividade cadastrada.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="3" class="text-center py-3" style="color: #cbd5e1;">Nenhuma atividade cadastrada.</td></tr>`;
                 return;
             }
             
@@ -504,31 +673,92 @@
 
                 tbody.innerHTML += `
                     <tr>
-                        <td><strong>${t.titulo}</strong></td>
+                        <td class="text-white"><strong>${t.titulo}</strong></td>
                         <td><span class="${classeTag}"><i class="fa-regular fa-clock"></i> ${textoPrazo} (${(t.data || "").split('-').reverse().join('/')})</span></td>
-                        <td class="text-end"><button class="btn btn-sm btn-iema rounded-pill px-3" onclick="abrirModalEntrega(${i})">Enviar PDF</button></td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-neon rounded-pill px-3" onclick="abrirModalEntrega('${idTurma}', '${encodeURIComponent(t.titulo)}')">
+                                Enviar PDF
+                            </button>
+                        </td>
                     </tr>`;
             });
         }
 
-        function abrirModalEntrega(i) {
-            document.getElementById('entregaIndexTrabalho').value = i;
+        function abrirModalEntrega(idTurma, tituloEncoded) {
+            const titulo = decodeURIComponent(tituloEncoded);
+            document.getElementById('entregaTurmaID').value = idTurma;
+            document.getElementById('entregaTituloAtividade').value = titulo;
+            document.getElementById('displayAtividadeTitulo').value = titulo;
+            document.getElementById('formEntregaAluno').reset();
+            alternarCamposEnvio();
             new bootstrap.Modal(document.getElementById('modalEntregarTrabalho')).show();
         }
 
-        function enviarTrabalhoPDF(e) {
+        function alternarCamposEnvio() {
+            const tipo = document.getElementById('tipoEnvioAluno').value;
+            const labelNomes = document.getElementById('labelNomesAlunos');
+            const inputNomes = document.getElementById('inputNomesAlunos');
+            if (tipo === 'individual') {
+                labelNomes.innerText = "Nome Completo do Aluno";
+                inputNomes.placeholder = "Ex: Maria Clara";
+            } else {
+                labelNomes.innerText = "Nome dos Integrantes do Grupo";
+                inputNomes.placeholder = "Ex: Maria, Carlos, Pedro, Amanda";
+            }
+        }
+
+        async function enviarTrabalhoPDF(e) {
             e.preventDefault();
-            const i = document.getElementById('entregaIndexTrabalho').value;
-            const nome = document.getElementById('inputNomesAlunos').value;
-            const file = document.getElementById('inputFilePDF').files[0];
+            const idTurma = document.getElementById('entregaTurmaID').value;
+            const tituloAtividade = document.getElementById('entregaTituloAtividade').value;
+            const nome = document.getElementById('inputNomesAlunos').value.trim();
+            const fileInput = document.getElementById('inputFilePDF');
+            const file = fileInput.files[0];
+            const btnSubmit = document.getElementById('btnSubmitPDF');
+
+            if (!file) {
+                alert('Selecione um arquivo PDF!');
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                alert('O arquivo ultrapassa o tamanho máximo permitido de 5MB!');
+                return;
+            }
+
+            btnSubmit.disabled = true;
+            btnSubmit.innerText = "Enviando arquivo para a nuvem...";
+
             const reader = new FileReader();
             reader.onload = async function(evt) {
-                if (!dadosTurmas[turmaAtualID].trabalhos[i].entregas) dadosTurmas[turmaAtualID].trabalhos[i].entregas = [];
-                dadosTurmas[turmaAtualID].trabalhos[i].entregas.push({ alunos: nome, dadosPDF: evt.target.result, nomeArquivo: file.name, dataEnvio: new Date().toLocaleDateString() });
-                await salvarDadosSupabase();
-                alert('Enviado com sucesso!');
-                bootstrap.Modal.getInstance(document.getElementById('modalEntregarTrabalho')).hide();
+                const base64Data = evt.target.result;
+
+                const { error } = await _supabase
+                    .from('trabalhos_entregues')
+                    .insert([{
+                        turma_id: idTurma,
+                        atividade_titulo: tituloAtividade,
+                        aluno_nome: nome,
+                        nome_arquivo: file.name,
+                        arquivo_base64: base64Data
+                    }]);
+
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = "Enviar PDF para o Professor";
+
+                if (error) {
+                    console.error("Erro ao salvar entrega:", error);
+                    alert("Erro ao enviar: " + error.message);
+                } else {
+                    bootstrap.Modal.getInstance(document.getElementById('modalEntregarTrabalho')).hide();
+                    
+                    document.getElementById('detalhesSucessoEnvio').innerHTML = `
+                        O arquivo <strong class="text-white">${file.name}</strong> referente à atividade <strong class="text-white">${tituloAtividade}</strong> foi recebido com sucesso.
+                    `;
+                    new bootstrap.Modal(document.getElementById('modalSucessoEnvio')).show();
+                }
             };
+
             reader.readAsDataURL(file);
         }
 
@@ -545,7 +775,7 @@
             if (!list) return;
             list.innerHTML = '';
             if (!materiais || materiais.length === 0) {
-                list.innerHTML = `<p class="text-muted small">Nenhum material cadastrado.</p>`;
+                list.innerHTML = `<p class="small" style="color: #cbd5e1;">Nenhum material cadastrado.</p>`;
                 return;
             }
             materiais.forEach((m, index) => {
@@ -553,7 +783,7 @@
                 list.innerHTML += `
                     <div class="material-item">
                         <div>
-                            <strong>${m.titulo}</strong>
+                            <strong class="text-white">${m.titulo}</strong>
                             <div class="mt-1"><span class="badge-downloads"><i class="fa-solid fa-eye me-1"></i> ${totalCliques} acessos</span></div>
                         </div>
                         <a href="${m.link || '#'}" target="_blank" onclick="registrarClique(${index})"><i class="fa-solid fa-download"></i> Acessar</a>
@@ -577,7 +807,7 @@
                 list.innerHTML += `
                     <div class="material-item">
                         <div>
-                            <strong>${m.titulo}</strong>
+                            <strong class="text-white">${m.titulo}</strong>
                             <div class="mt-1"><span class="badge-downloads"><i class="fa-solid fa-eye me-1"></i> ${totalCliques} acessos</span></div>
                         </div>
                         <a href="${m.link || '#'}" target="_blank" onclick="registrarClique(${realIndex})"><i class="fa-solid fa-download"></i> Acessar</a>
@@ -629,15 +859,15 @@
             if (!turma) return;
 
             (turma.trabalhos || []).forEach((t, i) => {
-                tTrab.innerHTML += `<tr><td>${t.titulo}</td><td class="text-end"><button class="btn btn-sm btn-danger" onclick="excluirTrabalho('${turmaID}', ${i})">Excluir</button></td></tr>`;
+                tTrab.innerHTML += `<tr><td class="text-white">${t.titulo}</td><td class="text-end"><button class="btn btn-sm btn-danger" onclick="excluirTrabalho('${turmaID}', ${i})"><i class="fa-solid fa-trash"></i> Excluir</button></td></tr>`;
             });
             (turma.materiais || []).forEach((m, i) => {
-                tMat.innerHTML += `<tr><td>${m.titulo}</td><td class="text-end"><button class="btn btn-sm btn-danger" onclick="excluirMaterial('${turmaID}', ${i})">Excluir</button></td></tr>`;
+                tMat.innerHTML += `<tr><td class="text-white">${m.titulo}</td><td class="text-end"><button class="btn btn-sm btn-danger" onclick="excluirMaterial('${turmaID}', ${i})"><i class="fa-solid fa-trash"></i> Excluir</button></td></tr>`;
             });
         }
 
         async function excluirTrabalho(turmaID, i) {
-            if (confirm('Deseja excluir?')) {
+            if (confirm('Deseja excluir esta atividade?')) {
                 dadosTurmas[turmaID].trabalhos.splice(i, 1);
                 await salvarDadosSupabase();
                 carregarListaGerenciamento();
@@ -646,7 +876,7 @@
         }
 
         async function excluirMaterial(turmaID, i) {
-            if (confirm('Deseja excluir?')) {
+            if (confirm('Deseja excluir este material?')) {
                 dadosTurmas[turmaID].materiais.splice(i, 1);
                 await salvarDadosSupabase();
                 carregarListaGerenciamento();
@@ -654,22 +884,43 @@
             }
         }
 
-        function carregarEntregasAdmin() {
+        async function carregarEntregasAdmin() {
             const turmaID = document.getElementById('selectTurmaEntregas').value;
             const tbody = document.getElementById('tabelaEntregasAdmin');
             if (!tbody || !turmaID) return;
+            tbody.innerHTML = `<tr><td colspan="3" class="text-center py-3" style="color: #cbd5e1;">Carregando PDFs da nuvem...</td></tr>`;
+
+            const { data, error } = await _supabase
+                .from('trabalhos_entregues')
+                .select('*')
+                .eq('turma_id', turmaID)
+                .order('created_at', { ascending: false });
+
             tbody.innerHTML = '';
-            const turma = dadosTurmas[turmaID];
-            let count = 0;
-            if (turma && turma.trabalhos) {
-                turma.trabalhos.forEach(t => {
-                    (t.entregas || []).forEach(e => {
-                        count++;
-                        tbody.innerHTML += `<tr><td>${t.titulo}</td><td>${e.alunos}</td><td><a href="${e.dadosPDF}" download="${e.nomeArquivo}" class="btn btn-sm btn-success">Baixar</a></td></tr>`;
-                    });
-                });
+            if (error || !data || data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" class="text-center py-3" style="color: #cbd5e1;">Nenhum envio recebido para esta turma.</td></tr>`;
+                return;
             }
-            if (count === 0) tbody.innerHTML = `<tr><td colspan="3" class="text-center text-muted">Nenhum envio.</td></tr>`;
+
+            data.forEach(item => {
+                const dataEnvioFormatada = new Date(item.created_at).toLocaleDateString('pt-BR');
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="text-white"><strong>${item.atividade_titulo}</strong></td>
+                        <td class="text-white">${item.aluno_nome} <br><small style="color: #cbd5e1;">Enviado em: ${dataEnvioFormatada}</small></td>
+                        <td class="text-end">
+                            <a href="${item.arquivo_base64}" download="${item.nome_arquivo}" class="btn btn-sm btn-success rounded-pill px-3 me-1"><i class="fa-solid fa-download me-1"></i> Baixar</a>
+                            <button class="btn btn-sm btn-outline-danger rounded-pill px-2" onclick="excluirEntrega('${item.id}')"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        async function excluirEntrega(entregaId) {
+            if (confirm('Deseja excluir permanentemente este PDF?')) {
+                await _supabase.from('trabalhos_entregues').delete().eq('id', entregaId);
+                carregarEntregasAdmin();
+            }
         }
 
         function alternarCamposAdicao() {
@@ -698,7 +949,7 @@
             if (!dadosTurmas[id]) dadosTurmas[id] = { trabalhos: [], materiais: [] };
             if (tipo === 'trabalho') {
                 if (!dadosTurmas[id].trabalhos) dadosTurmas[id].trabalhos = [];
-                dadosTurmas[id].trabalhos.push({ titulo: titulo, data: extra || "2026-11-01", entregas: [] });
+                dadosTurmas[id].trabalhos.push({ titulo: titulo, data: extra || "2026-11-01" });
             } else if (tipo === 'material') {
                 if (!dadosTurmas[id].materiais) dadosTurmas[id].materiais = [];
                 dadosTurmas[id].materiais.push({ titulo: titulo, link: extra || "#", novo: true, cliques: 0 });
@@ -722,6 +973,8 @@
                 } else { clearInterval(pInterval); alert('Tempo encerrado!'); }
             }, 1000);
         }
+        function pausarPomodoro() { clearInterval(pInterval); pInterval = null; }
+        function resetarPomodoro() { clearInterval(pInterval); pInterval = null; tRestante = 1500; document.getElementById('pomodoroDisplay').innerText = "25:00"; }
     </script>
 </body>
 </html>
